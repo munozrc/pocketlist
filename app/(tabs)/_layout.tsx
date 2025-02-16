@@ -14,8 +14,36 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: "Inicio",
-          tabBarIcon: ({ color }) => (
-            <Feather name="home" size={28} color={color} />
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="transactions"
+        options={{
+          title: "Transacciones",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="repeat" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="shopping-list"
+        options={{
+          title: "Lista de Compras",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="shopping-bag" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Configuración",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="settings" size={size} color={color} />
           ),
         }}
       />
