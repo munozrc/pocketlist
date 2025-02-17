@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ToggleGroup } from "@/components/ui";
 import { AccountBalance, StatsCard } from "@/features/home/components";
+import { TransactionCard } from "@/features/home/components/TransactionCard";
 
 const dateFilterOptions = {
   today: "Hoy",
@@ -29,6 +30,16 @@ export default function HomeTab() {
         />
         <StatsCard expenses={830_000} income={2_966_740} />
       </View>
+      <View style={styles.transactionsContainer}>
+        <Text style={styles.transactionTitle}>Transacciones Recientes</Text>
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6]}
+          keyExtractor={(item) => item.toString()}
+          contentContainerStyle={{ paddingBottom: 20, gap: 10 }}
+          showsVerticalScrollIndicator={false}
+          renderItem={TransactionCard}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -45,5 +56,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     backgroundColor: "#f5f5f5",
     gap: 20,
+  },
+  transactionsContainer: {
+    flex: 1,
+    paddingTop: 20,
+    paddingHorizontal: 25,
+  },
+  transactionTitle: {
+    fontSize: 14,
+    fontWeight: 600,
+    marginBottom: 15,
+    color: "#101010",
   },
 });

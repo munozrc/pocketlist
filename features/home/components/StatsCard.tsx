@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     backgroundColor: "#fff",
+    borderColor: "#f0f0f0",
     borderRadius: 8,
+    borderWidth: 1,
     padding: 20,
   },
   row: {

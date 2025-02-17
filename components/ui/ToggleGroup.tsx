@@ -46,8 +46,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#fff",
+    borderColor: "#f0f0f0",
     overflow: "hidden",
     borderRadius: 30,
+    borderWidth: 1,
   },
   toggleOption: {
     flex: 1,
