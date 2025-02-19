@@ -1,5 +1,10 @@
 import { type Dispatch, type SetStateAction } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+
+import { colors } from "@/constants/theme";
+import { verticalScale } from "@/utils/scaling-utils";
+
+import { BaseText } from "./BaseText";
 
 type ToggleGroupProps<T extends string | number> = {
   options: Record<T, string>;
@@ -27,14 +32,15 @@ export function ToggleGroup<T extends string | number>({
           ]}
           onPress={handleOptionSelect(optionKey)}
         >
-          <Text
+          <BaseText
+            size={11}
             style={[
               styles.textToggleOption,
               optionKey === selectedKey && styles.activeTextToggleOption,
             ]}
           >
             {options[optionKey]}
-          </Text>
+          </BaseText>
         </TouchableOpacity>
       ))}
     </View>
@@ -45,11 +51,10 @@ const styles = StyleSheet.create({
   toggleGroup: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#fff",
-    borderColor: "#f0f0f0",
+    backgroundColor: colors.neutral700,
+    borderRadius: verticalScale(30),
+    borderCurve: "continuous",
     overflow: "hidden",
-    borderRadius: 30,
-    borderWidth: 1,
   },
   toggleOption: {
     flex: 1,
@@ -57,18 +62,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 30,
+    borderRadius: verticalScale(30),
+    borderCurve: "continuous",
   },
   textToggleOption: {
-    fontSize: 12,
     fontWeight: 400,
-    color: "#767676",
+    color: colors.textLighter,
   },
   activeToggleOption: {
-    backgroundColor: "#404040",
+    backgroundColor: colors.neutral100,
   },
   activeTextToggleOption: {
     fontWeight: 600,
-    color: "#fff",
+    color: colors.black,
   },
 });

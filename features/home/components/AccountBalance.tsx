@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 
+import { BaseText } from "@/components/ui";
+import { colors } from "@/constants/theme";
 import { formatCurrency } from "@/utils/number-utils";
 
 type AccountBalanceProps = {
@@ -8,25 +10,13 @@ type AccountBalanceProps = {
 
 export function AccountBalance({ amount }: AccountBalanceProps) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Saldo Disponible</Text>
-      <Text style={styles.amount}>{formatCurrency(amount)}</Text>
+    <View style={{ width: "100%" }}>
+      <BaseText size={13} color={colors.neutral400}>
+        Saldo Disponible
+      </BaseText>
+      <BaseText size={27} color={colors.text} fontWeight="600">
+        {formatCurrency(amount)}
+      </BaseText>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: "#9d9ea2",
-  },
-  amount: {
-    fontSize: 28,
-    fontWeight: 600,
-    color: "#101010",
-  },
-});

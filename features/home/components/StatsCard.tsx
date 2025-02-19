@@ -1,7 +1,10 @@
 import { Feather } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { BaseText } from "@/components/ui";
+import { colors } from "@/constants/theme";
 import { formatCurrency } from "@/utils/number-utils";
+import { scale, verticalScale } from "@/utils/scaling-utils";
 
 type StatsCardProps = {
   income?: number;
@@ -12,21 +15,21 @@ export function StatsCard({ income, expenses }: StatsCardProps) {
   return (
     <View style={styles.card}>
       <View style={styles.row}>
-        <View style={[styles.badge, { backgroundColor: "#9ade7b" }]}>
-          <Feather name="arrow-up" color="#101010" size={16} />
+        <View style={[styles.badge, { backgroundColor: colors.green }]}>
+          <Feather name="arrow-up" color={colors.black} size={16} />
         </View>
         <View>
-          <Text style={styles.label}>Ingresos</Text>
-          <Text style={styles.amount}>{formatCurrency(income)}</Text>
+          <BaseText style={styles.label}>Ingresos</BaseText>
+          <BaseText style={styles.amount}>{formatCurrency(income)}</BaseText>
         </View>
       </View>
       <View style={styles.row}>
-        <View style={[styles.badge, { backgroundColor: "#f38585" }]}>
-          <Feather name="arrow-down" color="#101010" size={16} />
+        <View style={[styles.badge, { backgroundColor: colors.red }]}>
+          <Feather name="arrow-down" color={colors.black} size={16} />
         </View>
         <View>
-          <Text style={styles.label}>Gastos</Text>
-          <Text style={styles.amount}>{formatCurrency(expenses)}</Text>
+          <BaseText style={styles.label}>Gastos</BaseText>
+          <BaseText style={styles.amount}>{formatCurrency(expenses)}</BaseText>
         </View>
       </View>
     </View>
@@ -37,33 +40,29 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     flexDirection: "row",
-    backgroundColor: "#fff",
-    borderColor: "#f0f0f0",
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 20,
+    backgroundColor: colors.neutral700,
+    borderRadius: verticalScale(8),
+    padding: verticalScale(10),
   },
   row: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: verticalScale(8),
   },
   badge: {
-    width: 36,
+    width: scale(26),
     aspectRatio: 1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
   },
   label: {
-    fontSize: 12,
-    fontWeight: 400,
-    color: "#9d9ea2",
+    fontSize: verticalScale(9),
+    color: colors.neutral400,
   },
   amount: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: "#101010",
+    fontSize: verticalScale(11),
+    fontWeight: 400,
   },
 });
