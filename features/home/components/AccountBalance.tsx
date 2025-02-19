@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import { formatCurrency } from "@/utils/numberUtil";
+import { formatCurrency } from "@/utils/number-utils";
 
 type AccountBalanceProps = {
   amount?: number;

@@ -1,7 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { formatCurrency } from "@/utils/numberUtil";
+import { formatCurrency } from "@/utils/number-utils";
 
 export function TransactionCard() {
   return (
