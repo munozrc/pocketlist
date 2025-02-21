@@ -5,6 +5,10 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./",
-    "paths": { "@/*": ["./*"] }
+    "paths": {
+      "@app/*": ["./app/*"],
+      "@features/*": ["./features/*"],
+      "@shared/*": ["./shared/*"]
+    }
   }
 }

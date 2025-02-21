@@ -1,8 +1,9 @@
 import { View } from "react-native";
 
-import { BaseText } from "@/components/ui";
-import { colors } from "@/constants/theme";
-import { formatCurrency } from "@/utils/number-utils";
+import { colors } from "@shared/constants/theme";
+import { formatCurrency } from "@shared/utils/number-utils";
+
+import { BaseText } from "../ui";
 
 type AccountBalanceProps = {
   amount?: number;

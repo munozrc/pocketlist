@@ -6,7 +6,8 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "format": "prettier --write .",
+    "format:fix": "prettier --write .",
+    "format": "prettier --check .",
     "lint:fix": "eslint --fix .",
     "lint": "eslint ."
   },

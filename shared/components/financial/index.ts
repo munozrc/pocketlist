@@ -1,2 +1,2 @@
 export { AccountBalance } from "./AccountBalance";
-export { StatsCard } from "./StatsCard";
+export { IncomeExpenseCard } from "./StatsCard";

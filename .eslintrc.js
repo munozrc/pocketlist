@@ -18,9 +18,8 @@ module.exports = {
           "builtin",
           "external",
           "internal",
-          "parent",
-          "sibling",
-          "index",
+          ["parent", "sibling", "index"],
+          "object",
           "type",
         ],
         "newlines-between": "always",
@@ -30,5 +29,16 @@ module.exports = {
         },
       },
     ],
+  },
+  settings: {
+    "import/resolver": {
+      typescript: {
+        project: "./tsconfig.json",
+      },
+      node: {
+        paths: ["app", "features", "shared"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
   },
 };

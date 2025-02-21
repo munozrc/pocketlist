@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { BaseText, ScreenWrapper } from "@/components/ui";
+import { BaseText, ScreenWrapper } from "@shared/components/ui";
 
 export default function TransactionsTab() {
   return (

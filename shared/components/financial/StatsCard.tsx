@@ -1,17 +1,21 @@
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 
-import { BaseText } from "@/components/ui";
-import { colors } from "@/constants/theme";
-import { formatCurrency } from "@/utils/number-utils";
-import { scale, verticalScale } from "@/utils/scaling-utils";
+import { colors } from "@shared/constants/theme";
+import { formatCurrency } from "@shared/utils/number-utils";
+import { scale, verticalScale } from "@shared/utils/scaling-utils";
 
-type StatsCardProps = {
+import { BaseText } from "../ui";
+
+type IncomeExpenseCardProps = {
   income?: number;
   expenses?: number;
 };
 
-export function StatsCard({ income, expenses }: StatsCardProps) {
+export function IncomeExpenseCard({
+  income,
+  expenses,
+}: IncomeExpenseCardProps) {
   return (
     <View style={styles.card}>
       <View style={styles.row}>

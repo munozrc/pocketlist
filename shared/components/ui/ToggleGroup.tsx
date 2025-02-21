@@ -1,8 +1,8 @@
 import { type Dispatch, type SetStateAction } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { colors } from "@/constants/theme";
-import { verticalScale } from "@/utils/scaling-utils";
+import { colors } from "@shared/constants/theme";
+import { verticalScale } from "@shared/utils/scaling-utils";
 
 import { BaseText } from "./BaseText";
 

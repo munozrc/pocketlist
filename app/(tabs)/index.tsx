@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { ScreenWrapper, ToggleGroup } from "@/components/ui";
-import { AccountBalance, StatsCard } from "@/features/home/components";
-import { scale, verticalScale } from "@/utils/scaling-utils";
+import { TransactionCard } from "@features/transactions/components";
+import {
+  AccountBalance,
+  IncomeExpenseCard,
+} from "@shared/components/financial";
+import { BaseText, ScreenWrapper, ToggleGroup } from "@shared/components/ui";
+import { scale, verticalScale } from "@shared/utils/scaling-utils";
 
 const dateFilterOptions = {
   today: "Hoy",
@@ -26,7 +30,17 @@ export default function HomeTab() {
             selectedKey={dateFilter}
             onChange={setDateFilter}
           />
-          <StatsCard expenses={830_000} income={2_966_740} />
+          <IncomeExpenseCard expenses={830_000} income={2_966_740} />
+        </View>
+        <View style={styles.transactionSection}>
+          <BaseText size={13} fontWeight={500}>
+            Transacciones Recientes
+          </BaseText>
+          <View style={styles.transactionList}>
+            {[0, 1, 3, 4, 5, 6, 7, 8, 9].map((value) => (
+              <TransactionCard key={`transaction-item-${value}`} />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </ScreenWrapper>
@@ -39,5 +53,15 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(14),
     paddingHorizontal: verticalScale(14),
     gap: scale(16),
+  },
+  transactionSection: {
+    flex: 1,
+    paddingVertical: verticalScale(14),
+    paddingHorizontal: verticalScale(14),
+    gap: scale(12),
+  },
+  transactionList: {
+    flex: 1,
+    gap: scale(6),
   },
 });

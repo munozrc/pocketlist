@@ -1,0 +1,20 @@
+# Ignore dependencies
+node_modules
+package-lock.json
+
+# Build and compilation files
+.expo
+.expo-shared
+dist
+build
+coverage
+
+# Tool configurations
+.eslintignore
+.eslintrc.js
+.prettierrc.js
+tsconfig.json
+
+# System-specific files
+.DS_Store
+Thumbs.db
