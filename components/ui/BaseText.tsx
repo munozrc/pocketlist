@@ -11,9 +11,9 @@ type BaseTextProps = TextProps & {
 
 export function BaseText({
   children,
-  color = colors.text,
-  size = 18,
-  fontWeight = "400",
+  color = colors.neutral800,
+  size = 12,
+  fontWeight = 400,
   style,
   ...restOfProps
 }: BaseTextProps) {

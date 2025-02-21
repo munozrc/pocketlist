@@ -1,19 +1,18 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+
+import { BaseText, ScreenWrapper } from "@/components/ui";
 
 export default function ShoppingListTab() {
   return (
-    <View style={styles.container}>
-      <Text>shopping-list.tsx</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ScreenWrapper style={styles.container}>
+      <BaseText>shopping-list.tsx</BaseText>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
   },

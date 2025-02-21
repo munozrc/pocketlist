@@ -33,7 +33,7 @@ export function ToggleGroup<T extends string | number>({
           onPress={handleOptionSelect(optionKey)}
         >
           <BaseText
-            size={11}
+            size={10}
             style={[
               styles.textToggleOption,
               optionKey === selectedKey && styles.activeTextToggleOption,
@@ -49,9 +49,10 @@ export function ToggleGroup<T extends string | number>({
 
 const styles = StyleSheet.create({
   toggleGroup: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: colors.neutral700,
+    backgroundColor: colors.neutral100,
     borderRadius: verticalScale(30),
     borderCurve: "continuous",
     overflow: "hidden",
@@ -66,14 +67,14 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   textToggleOption: {
-    fontWeight: 400,
-    color: colors.textLighter,
+    fontWeight: 500,
+    color: colors.neutral900,
   },
   activeToggleOption: {
-    backgroundColor: colors.neutral100,
+    backgroundColor: colors.neutral800,
   },
   activeTextToggleOption: {
     fontWeight: 600,
-    color: colors.black,
+    color: colors.neutral100,
   },
 });

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     flexDirection: "row",
-    backgroundColor: colors.neutral700,
+    backgroundColor: colors.neutral100,
     borderRadius: verticalScale(8),
     padding: verticalScale(10),
   },
@@ -59,10 +59,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: verticalScale(9),
-    color: colors.neutral400,
+    color: colors.neutral500,
   },
   amount: {
     fontSize: verticalScale(11),
-    fontWeight: 400,
+    color: colors.neutral800,
+    fontWeight: 500,
   },
 });
