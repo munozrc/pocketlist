@@ -2,7 +2,7 @@ import { type Dispatch, type SetStateAction } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import { colors } from "@shared/constants/theme";
-import { verticalScale } from "@shared/utils/scaling-utils";
+import { scale, verticalScale } from "@shared/utils/scaling-utils";
 
 import { BaseText } from "./BaseText";
 
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   },
   toggleOption: {
     flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 8,
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(6),
     alignItems: "center",
     justifyContent: "center",
     borderRadius: verticalScale(30),

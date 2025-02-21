@@ -19,19 +19,19 @@ export function TransactionCard() {
           <Feather name="alert-circle" size={scale(18)} />
         </View>
         <View style={{ alignItems: "flex-start", justifyContent: "center" }}>
-          <BaseText size={12} fontWeight={500}>
+          <BaseText size={11} fontWeight={500}>
             Suscripción Netflix
           </BaseText>
-          <BaseText size={10} color={colors.neutral400}>
+          <BaseText size={8} color={colors.neutral400}>
             Entretenimiento
           </BaseText>
         </View>
       </View>
       <View style={{ alignItems: "flex-end", justifyContent: "center" }}>
-        <BaseText size={12} fontWeight={500}>
+        <BaseText size={11} fontWeight={500}>
           {formatCurrency(26_350)}
         </BaseText>
-        <BaseText size={10} color={colors.neutral400}>
+        <BaseText size={8} color={colors.neutral400}>
           {temporalDate}
         </BaseText>
       </View>
