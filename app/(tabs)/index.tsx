@@ -37,7 +37,7 @@ export default function HomeTab() {
             Transacciones Recientes
           </BaseText>
           <View style={styles.transactionList}>
-            {[0, 1, 3, 4, 5, 6, 7, 8, 9].map((value) => (
+            {Array.from({ length: 10 }, (_, index) => index).map((value) => (
               <TransactionCard key={`transaction-item-${value}`} />
             ))}
           </View>
