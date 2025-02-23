@@ -1,2 +1,4 @@
 /.expo
+/drizzle
 node_modules
+expo-env.d.ts

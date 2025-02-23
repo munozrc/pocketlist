@@ -1,7 +1,7 @@
 import { Text, type TextProps, type TextStyle } from "react-native";
 
-import { colors } from "@shared/constants/theme";
-import { verticalScale } from "@shared/utils/scaling-utils";
+import { colors } from "@shared/constants";
+import { verticalScale } from "@shared/utils";
 
 type BaseTextProps = TextProps & {
   color?: TextStyle["color"];

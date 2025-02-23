@@ -8,12 +8,8 @@ package-lock.json
 dist
 build
 coverage
-
-# Tool configurations
-.eslintignore
-.eslintrc.js
-.prettierrc.js
-tsconfig.json
+expo-env.d.ts
+/drizzle
 
 # System-specific files
 .DS_Store

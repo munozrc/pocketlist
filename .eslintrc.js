@@ -11,6 +11,7 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "prettier/prettier": "error",
+    "import/no-unresolved": "error",
     "import/order": [
       "error",
       {
@@ -19,8 +20,6 @@ module.exports = {
           "external",
           "internal",
           ["parent", "sibling", "index"],
-          "object",
-          "type",
         ],
         "newlines-between": "always",
         alphabetize: {
@@ -31,13 +30,12 @@ module.exports = {
     ],
   },
   settings: {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"],
+    },
     "import/resolver": {
       typescript: {
         project: "./tsconfig.json",
-      },
-      node: {
-        paths: ["app", "features", "shared"],
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
     },
   },

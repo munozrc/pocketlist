@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
-import { colors } from "@shared/constants/theme";
-import { formatCurrency } from "@shared/utils/number-utils";
+import { colors } from "@shared/constants";
+import { formatCurrency } from "@shared/utils";
 
 import { BaseText } from "../ui";
 

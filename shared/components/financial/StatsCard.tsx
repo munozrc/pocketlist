@@ -1,9 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 
-import { colors } from "@shared/constants/theme";
-import { formatCurrency } from "@shared/utils/number-utils";
-import { scale, verticalScale } from "@shared/utils/scaling-utils";
+import { colors } from "@shared/constants";
+import { formatCurrency, scale, verticalScale } from "@shared/utils";
 
 import { BaseText } from "../ui";
 

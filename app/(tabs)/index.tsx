@@ -7,7 +7,7 @@ import {
   IncomeExpenseCard,
 } from "@shared/components/financial";
 import { BaseText, ScreenWrapper, ToggleGroup } from "@shared/components/ui";
-import { scale, verticalScale } from "@shared/utils/scaling-utils";
+import { scale, verticalScale } from "@shared/utils";
 
 const dateFilterOptions = {
   today: "Hoy",
