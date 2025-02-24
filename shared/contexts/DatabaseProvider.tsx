@@ -1,5 +1,6 @@
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
 import {
   createContext,
@@ -29,6 +30,7 @@ function DatabaseInitializer({ children }: PropsWithChildren) {
   const db = useMemo(() => drizzle(sqliteDb, { schema: SCHEMAS }), [sqliteDb]);
 
   useMigrations(db, migrations);
+  useDrizzleStudio(sqliteDb);
 
   return (
     <DatabaseContext.Provider value={{ db, schemas: SCHEMAS }}>
