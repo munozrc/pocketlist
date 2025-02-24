@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { sqliteTable, text, real, integer } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, real, integer, int } from "drizzle-orm/sqlite-core";
 
 import type {
   TransactionStatus,
@@ -7,27 +7,26 @@ import type {
 } from "@features/transactions/types";
 import type { Currency, PaymentMethod } from "@shared/types";
 
-import { walletsTable } from "./wallet.schema";
+import { wallets } from "./wallet.schema";
 
-export const transactionTable = sqliteTable("transactions", {
-  id: integer().primaryKey({ autoIncrement: true }),
-  walletId: integer()
+export const transactions = sqliteTable("transactions", {
+  id: int().notNull().primaryKey({ autoIncrement: true }),
+  walletId: int()
     .notNull()
-    .references(() => walletsTable.id),
-  icon: text().notNull(),
+    .references(() => wallets.id),
+  icon: text(),
   title: text().notNull(),
   amount: real().notNull(),
   type: text().notNull().$type<TransactionType>(),
-  status: text().notNull().$type<TransactionStatus>(),
+  status: text().$type<TransactionStatus>().default("completed"),
   paymentMethod: text().notNull().$type<PaymentMethod>(),
   currency: text().$type<Currency>().default("COP"),
-  exchangeRate: integer(),
   category: text().notNull(),
   description: text(),
   isRecurring: integer({ mode: "boolean" }).default(false),
   receiptUrl: text(),
-  createdAt: text().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: text()
-    .default(sql`CURRENT_TIMESTAMP`)
-    .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+  createdAt: integer({ mode: "timestamp" }).default(sql`(unixepoch())`),
+  updatedAt: integer({ mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .$onUpdate(() => sql`(unixepoch())`),
 });

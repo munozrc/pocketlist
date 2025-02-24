@@ -1,7 +1,10 @@
+import { endOfToday, startOfToday } from "date-fns";
 import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { TransactionCard } from "@features/transactions/components";
+import { useTransactions } from "@features/transactions/hooks";
+import { useTotalBalance } from "@features/wallet/hooks";
 import {
   AccountBalance,
   IncomeExpenseCard,
@@ -20,25 +23,34 @@ export default function HomeTab() {
   const [dateFilter, setDateFilter] =
     useState<keyof typeof dateFilterOptions>("month");
 
+  const totalBalance = useTotalBalance();
+  const { transactions, totalExpenses, totalIncome } = useTransactions({
+    startDate: startOfToday(),
+    finalDate: endOfToday(),
+  });
+
   return (
     <ScreenWrapper>
       <ScrollView>
         <View style={styles.header}>
-          <AccountBalance amount={681_639.6} />
+          <AccountBalance amount={totalBalance} />
           <ToggleGroup
             options={dateFilterOptions}
             selectedKey={dateFilter}
             onChange={setDateFilter}
           />
-          <IncomeExpenseCard expenses={830_000} income={2_966_740} />
+          <IncomeExpenseCard expenses={totalExpenses} income={totalIncome} />
         </View>
         <View style={styles.transactionSection}>
           <BaseText size={13} fontWeight={500}>
             Transacciones Recientes
           </BaseText>
           <View style={styles.transactionList}>
-            {Array.from({ length: 10 }, (_, index) => index).map((value) => (
-              <TransactionCard key={`transaction-item-${value}`} />
+            {transactions.map((transaction) => (
+              <TransactionCard
+                key={`transaction-item-${transaction.id}`}
+                {...transaction}
+              />
             ))}
           </View>
         </View>

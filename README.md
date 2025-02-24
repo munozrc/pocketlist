@@ -7,9 +7,5 @@ npx drizzle-kit generate --name=init
 ```
 
 ```bash
-npx drizzle-kit migrate
-```
-
-```bash
 npx expo start --clear
 ```

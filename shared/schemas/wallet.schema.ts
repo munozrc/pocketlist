@@ -1,20 +1,23 @@
 import { sql } from "drizzle-orm";
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, real, int } from "drizzle-orm/sqlite-core";
 
 import type { WalletType } from "@features/wallet/types/wallet";
 import type { Currency } from "@shared/types";
 
-export const walletsTable = sqliteTable("wallets", {
-  id: integer().primaryKey({ autoIncrement: true }),
+export const wallets = sqliteTable("wallets", {
+  id: int().notNull().primaryKey({ autoIncrement: true }),
   name: text().notNull(),
   balance: real().notNull(),
   type: text().notNull().$type<WalletType>(),
   currency: text().$type<Currency>().default("COP"),
-  icon: text().notNull(),
-  totalExpenses: real().notNull(),
-  totalIncome: real().notNull(),
-  createdAt: text().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: text()
-    .default(sql`CURRENT_TIMESTAMP`)
-    .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+  icon: text(),
+  totalExpenses: real().default(0),
+  totalIncome: real().default(0),
+  createdAt: integer("createdAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  updatedAt: integer("updatedAt", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`)
+    .$onUpdate(() => sql`(unixepoch())`),
 });

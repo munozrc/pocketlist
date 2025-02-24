@@ -1,16 +1,25 @@
 import { Feather } from "@expo/vector-icons";
+import { InferSelectModel } from "drizzle-orm";
 import { StyleSheet, View } from "react-native";
 
 import { BaseText } from "@shared/components/ui";
 import { colors } from "@shared/constants";
+import { transactionTable } from "@shared/schemas/transaction.schema";
 import { formatCurrency, scale, verticalScale } from "@shared/utils";
 
-const temporalDate = new Date().toLocaleString("es-CO", {
+const dateFormat = Intl.DateTimeFormat("es-CO", {
   dateStyle: "short",
   timeStyle: "short",
 });
 
-export function TransactionCard() {
+type TransactionCardProps = InferSelectModel<typeof transactionTable>;
+
+export function TransactionCard({
+  title,
+  category,
+  amount,
+  createdAt,
+}: TransactionCardProps) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -19,19 +28,19 @@ export function TransactionCard() {
         </View>
         <View style={{ alignItems: "flex-start", justifyContent: "center" }}>
           <BaseText size={11} fontWeight={500}>
-            Suscripción Netflix
+            {title}
           </BaseText>
           <BaseText size={8} color={colors.neutral400}>
-            Entretenimiento
+            {category}
           </BaseText>
         </View>
       </View>
       <View style={{ alignItems: "flex-end", justifyContent: "center" }}>
         <BaseText size={11} fontWeight={500}>
-          {formatCurrency(26_350)}
+          {formatCurrency(amount)}
         </BaseText>
         <BaseText size={8} color={colors.neutral400}>
-          {temporalDate}
+          {dateFormat.format(createdAt ?? new Date())}
         </BaseText>
       </View>
     </View>
