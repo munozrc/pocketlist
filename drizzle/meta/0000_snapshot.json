@@ -1,9 +1,56 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "e536d9e4-9daf-4d30-99c2-166c9e112b24",
+  "id": "fba311db-7f46-4a16-a9af-d3a090733f39",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "transaction_categories": {
+      "name": "transaction_categories",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(unixepoch())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(unixepoch())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "transactions": {
       "name": "transactions",
       "columns": {
@@ -14,8 +61,8 @@
           "notNull": true,
           "autoincrement": true
         },
-        "walletId": {
-          "name": "walletId",
+        "wallet_id": {
+          "name": "wallet_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -57,8 +104,8 @@
           "autoincrement": false,
           "default": "'completed'"
         },
-        "paymentMethod": {
-          "name": "paymentMethod",
+        "payment_method": {
+          "name": "payment_method",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -74,7 +121,7 @@
         },
         "category": {
           "name": "category",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -86,31 +133,31 @@
           "notNull": false,
           "autoincrement": false
         },
-        "isRecurring": {
-          "name": "isRecurring",
+        "is_recurring": {
+          "name": "is_recurring",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
           "default": false
         },
-        "receiptUrl": {
-          "name": "receiptUrl",
+        "receipt_url": {
+          "name": "receipt_url",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
           "default": "(unixepoch())"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -120,12 +167,25 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "transactions_walletId_wallets_id_fk": {
-          "name": "transactions_walletId_wallets_id_fk",
+        "transactions_wallet_id_wallets_id_fk": {
+          "name": "transactions_wallet_id_wallets_id_fk",
           "tableFrom": "transactions",
           "tableTo": "wallets",
           "columnsFrom": [
-            "walletId"
+            "wallet_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transactions_category_transaction_categories_id_fk": {
+          "name": "transactions_category_transaction_categories_id_fk",
+          "tableFrom": "transactions",
+          "tableTo": "transaction_categories",
+          "columnsFrom": [
+            "category"
           ],
           "columnsTo": [
             "id"
@@ -184,32 +244,32 @@
           "notNull": false,
           "autoincrement": false
         },
-        "totalExpenses": {
-          "name": "totalExpenses",
+        "total_expenses": {
+          "name": "total_expenses",
           "type": "real",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
           "default": 0
         },
-        "totalIncome": {
-          "name": "totalIncome",
+        "total_income": {
+          "name": "total_income",
           "type": "real",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
           "default": 0
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "(unixepoch())"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,

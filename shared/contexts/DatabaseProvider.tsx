@@ -12,10 +12,16 @@ import {
 import { ActivityIndicator, View } from "react-native";
 
 import migrations from "@drizzle/migrations";
-import * as transactionSchemas from "@shared/schemas/transaction.schema";
-import * as walletSchemas from "@shared/schemas/wallet.schema";
+import * as transactionCategoriesSchema from "@shared/schemas/transaction-categories";
+import * as transactionsSchema from "@shared/schemas/transactions";
+import * as walletsSchema from "@shared/schemas/wallets";
 
-const SCHEMAS = { ...transactionSchemas, ...walletSchemas };
+const SCHEMAS = {
+  ...transactionCategoriesSchema,
+  ...transactionsSchema,
+  ...walletsSchema,
+};
+
 const DATABASE_NAME = "pocketlist";
 
 interface DbContextProps {

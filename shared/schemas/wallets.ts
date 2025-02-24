@@ -11,12 +11,12 @@ export const wallets = sqliteTable("wallets", {
   type: text().notNull().$type<WalletType>(),
   currency: text().$type<Currency>().default("COP"),
   icon: text(),
-  totalExpenses: real().default(0),
-  totalIncome: real().default(0),
-  createdAt: integer("createdAt", { mode: "timestamp" })
+  totalExpenses: real("total_expenses").default(0),
+  totalIncome: real("total_income").default(0),
+  createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),
-  updatedAt: integer("updatedAt", { mode: "timestamp" })
+  updatedAt: integer("updated_at", { mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`)
     .$onUpdate(() => sql`(unixepoch())`),

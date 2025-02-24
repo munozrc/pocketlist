@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { BaseText } from "@shared/components/ui";
 import { colors } from "@shared/constants";
-import { transactionTable } from "@shared/schemas/transaction.schema";
+import { transactionTable } from "@shared/schemas/transactions";
 import { formatCurrency, scale, verticalScale } from "@shared/utils";
 
 const dateFormat = Intl.DateTimeFormat("es-CO", {
