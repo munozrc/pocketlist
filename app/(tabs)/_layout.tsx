@@ -5,7 +5,7 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#2f95dc",
+        tabBarActiveTintColor: "#007AFF",
         tabBarShowLabel: false,
         tabBarStyle: { paddingTop: 4 },
         headerShown: false,
@@ -20,7 +20,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="transactions"
+        name="wallets"
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="repeat" size={size} color={color} />

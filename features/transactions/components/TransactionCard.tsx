@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { BaseText } from "@shared/components/ui";
 import { colors } from "@shared/constants";
-import { transactionTable } from "@shared/schemas/transactions";
+import { transactions } from "@shared/schemas/transactions";
 import { formatCurrency, scale, verticalScale } from "@shared/utils";
 
 const dateFormat = Intl.DateTimeFormat("es-CO", {
@@ -12,7 +12,7 @@ const dateFormat = Intl.DateTimeFormat("es-CO", {
   timeStyle: "short",
 });
 
-type TransactionCardProps = InferSelectModel<typeof transactionTable>;
+type TransactionCardProps = InferSelectModel<typeof transactions>;
 
 export function TransactionCard({
   title,

@@ -1,1 +1,8 @@
-export type WalletType = "bank" | "cash" | "credit_card" | "crypto" | "other";
+export type WalletType =
+  | "bank"
+  | "cash"
+  | "credit_card"
+  | "crypto"
+  | "debit_card"
+  | "digital_wallet"
+  | "other";

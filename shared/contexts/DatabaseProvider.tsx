@@ -33,7 +33,11 @@ const DatabaseContext = createContext<DbContextProps | undefined>(undefined);
 
 function DatabaseInitializer({ children }: PropsWithChildren) {
   const sqliteDb = useSQLiteContext();
-  const db = useMemo(() => drizzle(sqliteDb, { schema: SCHEMAS }), [sqliteDb]);
+
+  const db = useMemo(
+    () => drizzle(sqliteDb, { schema: SCHEMAS, casing: "snake_case" }),
+    [sqliteDb]
+  );
 
   useMigrations(db, migrations);
   useDrizzleStudio(sqliteDb);

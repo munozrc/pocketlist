@@ -8,6 +8,10 @@ export default function RootLayout() {
     <DatabaseProvider>
       <SafeAreaProvider>
         <Stack>
+          <Stack.Screen
+            name="(modals)/create-wallet"
+            options={{ headerShown: false, presentation: "modal" }}
+          />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
       </SafeAreaProvider>
