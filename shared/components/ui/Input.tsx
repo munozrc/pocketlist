@@ -12,19 +12,21 @@ import { colors } from "@shared/constants";
 import { scale, verticalScale } from "@shared/utils";
 
 type InputProps<T> = {
-  textStyle?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
+  isError?: boolean;
   keyboardType?: KeyboardTypeOptions;
   placeholder?: string;
+  textStyle?: StyleProp<TextStyle>;
   value: T;
   onChangeNumber?: (value?: number) => void;
   onChangeText?: (value?: string) => void;
 };
 
 export function Input<T>({
-  value,
-  textStyle,
   containerStyle,
+  isError = false,
+  textStyle,
+  value,
   onChangeNumber,
   onChangeText,
   ...restOfProps
@@ -36,7 +38,13 @@ export function Input<T>({
   };
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View
+      style={[
+        styles.container,
+        containerStyle,
+        isError ? styles.error : undefined,
+      ]}
+    >
       <TextInput
         style={[styles.input, textStyle]}
         value={value ? String(value) : undefined}
@@ -58,5 +66,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    fontSize: scale(12),
+  },
+  error: {
+    borderColor: colors.red,
   },
 });

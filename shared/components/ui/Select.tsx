@@ -10,31 +10,40 @@ type Option<T> = {
 };
 
 type SelectProps<T> = {
-  options: Option<T>[];
+  defaultOptionText?: string;
+  isError?: boolean;
   mode?: "dropdown" | "dialog";
+  options: Option<T>[];
   value?: T;
   onChange: (value: T, index: number) => void;
 };
 
 export function Select<T>({
+  defaultOptionText = "Selecciona",
+  isError = false,
   options,
   value,
   onChange,
   ...restOfProps
 }: SelectProps<T>) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isError ? styles.error : undefined]}>
       <Picker
         style={styles.select}
         selectedValue={value}
         onValueChange={onChange}
         {...restOfProps}
       >
-        <Picker.Item value="" label="Selecciona" />
+        <Picker.Item
+          value=""
+          label={defaultOptionText}
+          style={{ ...styles.option, color: colors.neutral500 }}
+        />
         {options.map((item) => (
           <Picker.Item
             key={`select-option-${item.value}`}
             label={item.label}
+            style={styles.option}
             value={item.value}
           />
         ))}
@@ -53,5 +62,12 @@ const styles = StyleSheet.create({
   },
   select: {
     flex: 1,
+  },
+  option: {
+    fontSize: scale(12),
+    color: colors.black,
+  },
+  error: {
+    borderColor: colors.red,
   },
 });
