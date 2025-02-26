@@ -98,15 +98,18 @@ export default function CreateWallet() {
             gap: scale(16),
           }}
         >
-          <BaseText>Crear Billetera</BaseText>
+          <BaseText size={25} fontWeight="700">
+            Crear Billetera
+          </BaseText>
           <View>
             <Input
               value={formState.name}
               placeholder="Nombre"
               onChangeText={handleChange("name")}
+              isError={!!errors.name}
             />
             {errors.name && (
-              <BaseText size={10} color={colors.red}>
+              <BaseText size={12} color={colors.red}>
                 {errors.name}
               </BaseText>
             )}
@@ -117,9 +120,10 @@ export default function CreateWallet() {
               value={formState.balance}
               placeholder="Saldo"
               onChangeNumber={handleChange("balance")}
+              isError={!!errors.balance}
             />
             {errors.balance && (
-              <BaseText size={10} color={colors.red}>
+              <BaseText size={12} color={colors.red}>
                 {errors.balance}
               </BaseText>
             )}
@@ -128,10 +132,12 @@ export default function CreateWallet() {
             <Select
               value={formState.type}
               options={walletTypeOptions}
+              defaultOptionText="Selecciona un tipo"
               onChange={handleChange("type")}
+              isError={!!errors.type}
             />
             {errors.type && (
-              <BaseText size={10} color={colors.red}>
+              <BaseText size={12} color={colors.red}>
                 {errors.type}
               </BaseText>
             )}
@@ -140,7 +146,7 @@ export default function CreateWallet() {
             onPress={handleSubmit}
             disabled={status === "pending" || status === "success"}
           >
-            <BaseText color={colors.white} size={14}>
+            <BaseText color={colors.white} size={14} fontWeight={600}>
               Crear
             </BaseText>
           </Button>
