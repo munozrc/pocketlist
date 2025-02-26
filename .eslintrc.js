@@ -34,9 +34,7 @@ module.exports = {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
-      typescript: {
-        project: "./tsconfig.json",
-      },
+      typescript: {},
     },
   },
 };
