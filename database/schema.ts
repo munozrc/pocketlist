@@ -23,23 +23,22 @@ export type Currency =
   | "INR";
 
 const timestamps = {
-  createdAt: integer("created_at", { mode: "timestamp" })
-    .notNull()
-    .default(sql`(unixepoch())`),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`(unixepoch())`
+  ),
   updatedAt: integer("updated_at", { mode: "timestamp" })
-    .notNull()
     .default(sql`(unixepoch())`)
-    .$onUpdate(() => sql`(unixepoch())`),
+    .$onUpdate(() => new Date()),
 };
 
 export const wallets = sqliteTable("wallets", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
   name: text().notNull(),
-  balance: real().notNull(),
+  balance: real().notNull().default(0),
   type: text().notNull().$type<WalletType>(),
   currency: text().$type<Currency>().default("COP"),
-  totalExpenses: real("total_expenses").default(0),
-  totalIncome: real("total_income").default(0),
+  totalExpenses: real("total_expenses").notNull().default(0),
+  totalIncome: real("total_income").notNull().default(0),
   ...timestamps,
 });
 

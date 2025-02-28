@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "2ab4c839-573c-445e-a038-0ff46d7462e7",
+  "id": "c174a5e4-2343-4634-861e-78f1e6a46d70",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "transaction_categories": {
@@ -32,7 +32,7 @@
           "name": "created_at",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "default": "(unixepoch())"
         },
@@ -40,7 +40,7 @@
           "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "default": "(unixepoch())"
         }
@@ -145,7 +145,7 @@
           "name": "created_at",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "default": "(unixepoch())"
         },
@@ -153,7 +153,7 @@
           "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "default": "(unixepoch())"
         }
@@ -213,7 +213,8 @@
           "type": "real",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": 0
         },
         "type": {
           "name": "type",
@@ -234,7 +235,7 @@
           "name": "total_expenses",
           "type": "real",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false,
           "default": 0
         },
@@ -242,7 +243,7 @@
           "name": "total_income",
           "type": "real",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false,
           "default": 0
         },
@@ -250,7 +251,7 @@
           "name": "created_at",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "default": "(unixepoch())"
         },
@@ -258,7 +259,7 @@
           "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false,
           "default": "(unixepoch())"
         }

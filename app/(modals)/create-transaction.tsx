@@ -117,17 +117,16 @@ export default function CreateTransaction() {
       const updateWalletDate = {
         balance:
           type === "income"
-            ? walletFound.balance + (amount ?? 0)
-            : walletFound.balance - (amount ?? 0),
+            ? walletFound.balance + payload.amount
+            : walletFound.balance - payload.amount,
         totalExpenses:
           type === "income"
-            ? (walletFound.totalExpenses ?? 0)
-            : (walletFound.totalExpenses ?? 0) + (amount ?? 0),
+            ? walletFound.totalExpenses
+            : walletFound.totalExpenses + payload.amount,
         totalIncome:
           type === "expense"
-            ? (walletFound.totalIncome ?? 0)
-            : (walletFound.totalIncome ?? 0) + (amount ?? 0),
-        updatedAt: new Date(),
+            ? walletFound.totalIncome
+            : walletFound.totalIncome + payload.amount,
       };
 
       if (updateWalletDate.balance < 0) {
@@ -138,13 +137,13 @@ export default function CreateTransaction() {
         return;
       }
 
-      await db.insert(transactions).values([payload]);
-
       await db
         .update(wallets)
         .set(updateWalletDate)
         .where(eq(wallets.id, walletFound.id))
         .execute();
+
+      await db.insert(transactions).values([payload]);
 
       setStatus("success");
 

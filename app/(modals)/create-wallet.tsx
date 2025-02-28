@@ -31,7 +31,7 @@ export default function CreateWallet() {
   };
 
   const handleSubmit = async () => {
-    const { balance, name, type } = formState;
+    const { balance = 0, name, type } = formState;
     const newErrors: Partial<WalletErrorsState> = {};
 
     if (status === "pending" || status === "success") {
@@ -40,9 +40,6 @@ export default function CreateWallet() {
 
     if (!name || !name.trim().length) {
       newErrors.name = "Ingresa un nombre";
-    }
-    if (!balance || isNaN(balance)) {
-      newErrors.balance = "Ingresa un valor";
     }
     if (!type || typeof walletTypes[type] !== "string") {
       newErrors.type = "Selecciona un tipo";
@@ -56,11 +53,11 @@ export default function CreateWallet() {
     setStatus("pending");
 
     const payload: WalletFormState = {
-      balance: balance ?? 0,
+      balance: balance,
       currency: "COP",
       name: name?.trim() ?? "",
       totalExpenses: 0,
-      totalIncome: balance ?? 0,
+      totalIncome: balance,
       type: type ?? "bank",
     };
 
