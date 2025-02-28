@@ -1,4 +1,4 @@
-import { eq, type InferInsertModel } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { router } from "expo-router";
 import { Alert, ScrollView, View } from "react-native";
 import { useMemo, useState } from "react";
@@ -9,7 +9,7 @@ import { db } from "@/database/init";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 import { ScreenWrapper } from "@/components/layouts";
-import { transactions, wallets } from "@/database/schema";
+import { TransactionTable, WalletTable } from "@/database/schema";
 import { transactionTypes } from "@/features/transaction/constants";
 import { useTransactionCategories } from "@/features/transaction/hooks";
 import { useWallets } from "@/features/wallet/hooks";
@@ -19,7 +19,7 @@ const transactionTypeOptions = Object.keys(transactionTypes).map((key) => ({
   value: key,
 }));
 
-type TransactionFormState = InferInsertModel<typeof transactions>;
+type TransactionFormState = typeof TransactionTable.$inferInsert;
 type TransactionErrorsState = Record<keyof TransactionFormState, string>;
 type TransactionFormStatus = "success" | "pending" | "error" | "idle";
 
@@ -104,7 +104,7 @@ export default function CreateTransaction() {
     };
 
     try {
-      const walletFound = await db.query.wallets.findFirst({
+      const walletFound = await db.query.WalletTable.findFirst({
         where: (w, { eq }) => eq(w.id, walletId ?? 0),
       });
 
@@ -138,12 +138,12 @@ export default function CreateTransaction() {
       }
 
       await db
-        .update(wallets)
+        .update(WalletTable)
         .set(updateWalletDate)
-        .where(eq(wallets.id, walletFound.id))
+        .where(eq(WalletTable.id, walletFound.id))
         .execute();
 
-      await db.insert(transactions).values([payload]);
+      await db.insert(TransactionTable).values([payload]);
 
       setStatus("success");
 

@@ -1,24 +1,30 @@
 import { Feather } from "@expo/vector-icons";
-import { InferSelectModel } from "drizzle-orm";
 import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/theme";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 import { Text } from "@/components/ui";
-import { transactions } from "@/database/schema";
+import { TransactionTable } from "@/database/schema";
 
 const dateFormat = Intl.DateTimeFormat("es-CO", {
   dateStyle: "short",
   timeStyle: "short",
 });
 
+type TransactionCardProps = Omit<
+  typeof TransactionTable.$inferSelect,
+  "category"
+> & {
+  category?: string;
+};
+
 export function TransactionCard({
   title,
   category,
   amount,
   createdAt,
-}: InferSelectModel<typeof transactions>) {
+}: TransactionCardProps) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>

@@ -1,5 +1,4 @@
 import { Alert, ScrollView, View } from "react-native";
-import { InferInsertModel } from "drizzle-orm";
 import { router } from "expo-router";
 import { useState } from "react";
 
@@ -8,7 +7,7 @@ import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { scale, verticalScale } from "@/lib/scaling";
 import { ScreenWrapper } from "@/components/layouts";
-import { wallets } from "@/database/schema";
+import { WalletTable } from "@/database/schema";
 import { walletTypes } from "@/features/wallet/constants";
 
 const walletTypeOptions = Object.keys(walletTypes).map((key) => ({
@@ -16,7 +15,7 @@ const walletTypeOptions = Object.keys(walletTypes).map((key) => ({
   value: key,
 }));
 
-type WalletFormState = InferInsertModel<typeof wallets>;
+type WalletFormState = typeof WalletTable.$inferInsert;
 type WalletErrorsState = Record<keyof WalletFormState, string>;
 type WalletFormStatus = "success" | "pending" | "error" | "idle";
 
@@ -62,7 +61,7 @@ export default function CreateWallet() {
     };
 
     try {
-      await db.insert(wallets).values([payload]);
+      await db.insert(WalletTable).values([payload]);
       setStatus("success");
 
       Alert.alert("Éxito", "Billetera creada correctamente.", [

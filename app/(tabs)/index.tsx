@@ -116,6 +116,7 @@ export default function HomeTab() {
               <TransactionCard
                 key={`transaction-item-${transaction.id}`}
                 {...transaction}
+                category="Suscripción"
               />
             ))}
           </View>

@@ -31,7 +31,7 @@ const timestamps = {
     .$onUpdate(() => new Date()),
 };
 
-export const wallets = sqliteTable("wallets", {
+export const WalletTable = sqliteTable("wallets", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
   name: text().notNull(),
   balance: real().notNull().default(0),
@@ -44,7 +44,7 @@ export const wallets = sqliteTable("wallets", {
 
 export type TransactionType = "income" | "expense";
 
-export const transactionCategories = sqliteTable("transaction_categories", {
+export const TransactionCategoryTable = sqliteTable("transaction_categories", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
   name: text().notNull(),
   type: text().notNull().$type<TransactionType>(),
@@ -53,11 +53,11 @@ export const transactionCategories = sqliteTable("transaction_categories", {
 
 export type TransactionStatus = "pending" | "completed" | "canceled";
 
-export const transactions = sqliteTable("transactions", {
+export const TransactionTable = sqliteTable("transactions", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
   walletId: int("wallet_id")
     .notNull()
-    .references(() => wallets.id),
+    .references(() => WalletTable.id),
   icon: text(),
   title: text().notNull(),
   amount: real().notNull(),
@@ -66,7 +66,7 @@ export const transactions = sqliteTable("transactions", {
   currency: text().$type<Currency>().default("COP"),
   category: int()
     .notNull()
-    .references(() => transactionCategories.id),
+    .references(() => TransactionCategoryTable.id),
   description: text(),
   isRecurring: integer("is_recurring", { mode: "boolean" }).default(false),
   receiptUrl: text("receipt_url"),
