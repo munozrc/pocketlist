@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 
-import { BaseText, ScreenWrapper } from "@shared/components/ui";
+import { ScreenWrapper } from "@/components/layouts";
+import { Text } from "@/components/ui";
 
 export default function SettingsTab() {
   return (
     <ScreenWrapper style={styles.container}>
-      <BaseText>settings.tsx</BaseText>
+      <Text>settings.tsx</Text>
     </ScreenWrapper>
   );
 }

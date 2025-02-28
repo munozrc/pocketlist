@@ -1,40 +1,14 @@
 // https://docs.expo.dev/guides/using-eslint/
 module.exports = {
-  extends: [
-    "expo",
-    "prettier",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
-  ],
-  ignorePatterns: ["/dist/*"],
+  extends: ["expo", "prettier"],
   plugins: ["prettier"],
   rules: {
-    "prettier/prettier": "error",
-    "import/no-unresolved": "error",
-    "import/order": [
+    "prettier/prettier": [
       "error",
       {
-        groups: [
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling", "index"],
-        ],
-        "newlines-between": "always",
-        alphabetize: {
-          order: "asc",
-          caseInsensitive: true,
-        },
+        trailingComma: "es5",
+        printWidth: 80,
       },
     ],
-  },
-  settings: {
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"],
-    },
-    "import/resolver": {
-      typescript: {},
-    },
   },
 };

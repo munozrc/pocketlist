@@ -1,20 +1,28 @@
-import { Stack } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 
-import { DatabaseProvider } from "@shared/contexts";
+import { db, sqliteDb } from "@/database/init";
+import migrations from "@/database/migrations/migrations";
 
 export default function RootLayout() {
+  useMigrations(db, migrations);
+  useDrizzleStudio(sqliteDb);
+
   return (
-    <DatabaseProvider>
-      <SafeAreaProvider>
-        <Stack>
-          <Stack.Screen
-            name="(modals)/create-wallet"
-            options={{ headerShown: false, presentation: "modal" }}
-          />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </SafeAreaProvider>
-    </DatabaseProvider>
+    <SafeAreaProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="(modals)/create-transaction"
+          options={{ presentation: "modal" }}
+        />
+        <Stack.Screen
+          name="(modals)/create-wallet"
+          options={{ presentation: "modal" }}
+        />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </SafeAreaProvider>
   );
 }

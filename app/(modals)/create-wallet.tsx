@@ -1,20 +1,15 @@
-import { InferInsertModel } from "drizzle-orm";
-import { useRouter } from "expo-router";
-import { useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
+import { InferInsertModel } from "drizzle-orm";
+import { router } from "expo-router";
+import { useState } from "react";
 
-import { walletTypes } from "@features/wallet/constants";
-import {
-  BaseText,
-  Button,
-  Input,
-  ScreenWrapper,
-  Select,
-} from "@shared/components/ui";
-import { colors } from "@shared/constants";
-import { useDatabase } from "@shared/contexts";
-import { wallets } from "@shared/schemas/wallets";
-import { scale, verticalScale } from "@shared/utils";
+import { Button, Input, Select, Text } from "@/components/ui";
+import { colors } from "@/constants/theme";
+import { db } from "@/database/init";
+import { scale, verticalScale } from "@/lib/scaling";
+import { ScreenWrapper } from "@/components/layouts";
+import { wallets } from "@/database/schema";
+import { walletTypes } from "@/features/wallet/constants";
 
 const walletTypeOptions = Object.keys(walletTypes).map((key) => ({
   label: walletTypes[key as keyof typeof walletTypes],
@@ -29,8 +24,6 @@ export default function CreateWallet() {
   const [formState, setFormState] = useState<Partial<WalletFormState>>({});
   const [errors, setErrors] = useState<Partial<WalletErrorsState>>({});
   const [status, setStatus] = useState<WalletFormStatus>("idle");
-  const { db, schemas } = useDatabase();
-  const router = useRouter();
 
   const handleChange = (name: keyof typeof formState) => (value?: unknown) => {
     setFormState((prev) => ({ ...prev, [name]: value }));
@@ -72,7 +65,7 @@ export default function CreateWallet() {
     };
 
     try {
-      await db.insert(schemas.wallets).values([payload]);
+      await db.insert(wallets).values([payload]);
       setStatus("success");
 
       Alert.alert("Éxito", "Billetera creada correctamente.", [
@@ -98,9 +91,9 @@ export default function CreateWallet() {
             gap: scale(16),
           }}
         >
-          <BaseText size={25} fontWeight="700">
+          <Text size={25} fontWeight="700">
             Crear Billetera
-          </BaseText>
+          </Text>
           <View>
             <Input
               value={formState.name}
@@ -109,9 +102,9 @@ export default function CreateWallet() {
               isError={!!errors.name}
             />
             {errors.name && (
-              <BaseText size={12} color={colors.red}>
+              <Text size={12} color={colors.red}>
                 {errors.name}
-              </BaseText>
+              </Text>
             )}
           </View>
           <View>
@@ -123,9 +116,9 @@ export default function CreateWallet() {
               isError={!!errors.balance}
             />
             {errors.balance && (
-              <BaseText size={12} color={colors.red}>
+              <Text size={12} color={colors.red}>
                 {errors.balance}
-              </BaseText>
+              </Text>
             )}
           </View>
           <View>
@@ -137,18 +130,18 @@ export default function CreateWallet() {
               isError={!!errors.type}
             />
             {errors.type && (
-              <BaseText size={12} color={colors.red}>
+              <Text size={12} color={colors.red}>
                 {errors.type}
-              </BaseText>
+              </Text>
             )}
           </View>
           <Button
             onPress={handleSubmit}
             disabled={status === "pending" || status === "success"}
           >
-            <BaseText color={colors.white} size={14} fontWeight={600}>
+            <Text color={colors.white} size={14} fontWeight={600}>
               Crear
-            </BaseText>
+            </Text>
           </Button>
         </View>
       </ScrollView>

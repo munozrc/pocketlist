@@ -1,2 +1,2 @@
-export { useTotalBalance } from "./useTotalBalance";
-export { useWallets } from "./useWallets";
+export { useTotalBalance } from "./use-total-balance";
+export { useWallets } from "./use-wallets";

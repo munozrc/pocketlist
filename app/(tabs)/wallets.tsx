@@ -1,20 +1,19 @@
 import { Feather } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { BaseText, ScreenWrapper } from "@shared/components/ui";
-import { scale, verticalScale } from "@shared/utils";
+import { scale, verticalScale } from "@/lib/scaling";
+import { ScreenWrapper } from "@/components/layouts";
+import { Text } from "@/components/ui";
 
 export default function TransactionsTab() {
-  const router = useRouter();
-
   return (
     <ScreenWrapper>
       <ScrollView>
         <View style={styles.container}>
-          <BaseText fontWeight="600" size={25}>
+          <Text fontWeight="600" size={25}>
             Billeteras
-          </BaseText>
+          </Text>
           <TouchableOpacity
             style={styles.button}
             onPress={() => router.push("/(modals)/create-wallet")}
