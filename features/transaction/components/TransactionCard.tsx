@@ -7,21 +7,22 @@ import { scale, verticalScale } from "@/lib/scaling";
 import { Text } from "@/components/ui";
 import { TransactionTable } from "@/database/schema";
 
+import { transactionCategoryIcons } from "../constants";
+
 const dateFormat = Intl.DateTimeFormat("es-CO", {
   dateStyle: "short",
   timeStyle: "short",
 });
 
-type TransactionCardProps = Omit<
-  typeof TransactionTable.$inferSelect,
-  "category"
-> & {
-  category?: string;
+type TransactionCardProps = typeof TransactionTable.$inferSelect & {
+  categoryName?: string;
 };
 
 export function TransactionCard({
+  type,
   title,
   category,
+  categoryName,
   amount,
   createdAt,
 }: TransactionCardProps) {
@@ -29,20 +30,27 @@ export function TransactionCard({
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.icon}>
-          <Feather name="alert-circle" size={scale(18)} />
+          <Feather
+            name={transactionCategoryIcons[category] ?? "credit-card"}
+            size={scale(16)}
+          />
         </View>
         <View style={{ alignItems: "flex-start", justifyContent: "center" }}>
           <Text size={11} fontWeight={500}>
             {title}
           </Text>
           <Text size={8} color={colors.neutral400}>
-            {category}
+            {categoryName}
           </Text>
         </View>
       </View>
       <View style={{ alignItems: "flex-end", justifyContent: "center" }}>
-        <Text size={11} fontWeight={500}>
-          {formatCurrency(amount)}
+        <Text
+          size={11}
+          fontWeight={500}
+          color={type === "income" ? "#008a2e" : "#e60000"}
+        >
+          {`${type === "income" ? "+" : "-"}${formatCurrency(amount, { style: "decimal" })}`}
         </Text>
         <Text size={8} color={colors.neutral400}>
           {dateFormat.format(createdAt ?? new Date())}
