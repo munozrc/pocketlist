@@ -1,5 +1,16 @@
 import { Feather } from "@expo/vector-icons";
-import { endOfToday, startOfToday } from "date-fns";
+import {
+  endOfMonth,
+  endOfToday,
+  endOfWeek,
+  endOfYear,
+  endOfYesterday,
+  startOfMonth,
+  startOfToday,
+  startOfWeek,
+  startOfYear,
+  startOfYesterday,
+} from "date-fns";
 import { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
@@ -15,25 +26,45 @@ import { useTotalBalance } from "@/features/wallet/hooks";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 
-const DATE_FILTERS = {
+const DATE_FILTER_OPTIONS = {
   TODAY: "Hoy",
+  YESTERDAY: "Ayer",
   WEEK: "Semana",
   MONTH: "Mes",
   YEAR: "Año",
 } as const;
 
-const DEFAULT_DATE_RANGE = {
-  startDate: startOfToday(),
-  endDate: endOfToday(),
-};
+const DATE_FILTER_VALUES = {
+  TODAY: {
+    startDate: startOfToday(),
+    endDate: endOfToday(),
+  },
+  YESTERDAY: {
+    startDate: startOfYesterday(),
+    endDate: endOfYesterday(),
+  },
+  WEEK: {
+    startDate: startOfWeek(new Date(), { weekStartsOn: 1 }),
+    endDate: endOfWeek(new Date(), { weekStartsOn: 1 }),
+  },
+  MONTH: {
+    startDate: startOfMonth(new Date()),
+    endDate: endOfMonth(new Date()),
+  },
+  YEAR: {
+    startDate: startOfYear(new Date()),
+    endDate: endOfYear(new Date()),
+  },
+} as const;
 
-type DateFilterKey = keyof typeof DATE_FILTERS;
+type DateFilterKey = keyof typeof DATE_FILTER_OPTIONS;
 
 export default function HomeTab() {
   const [selectedDateFilter, setSelectedDateFilter] =
     useState<DateFilterKey>("MONTH");
-  const { totalExpenses, totalIncome } =
-    useTransactionSummary(DEFAULT_DATE_RANGE);
+  const { totalExpenses, totalIncome } = useTransactionSummary(
+    DATE_FILTER_VALUES[selectedDateFilter]
+  );
   const { totalBalance } = useTotalBalance();
   const { transactions } = useTransactions();
 
@@ -52,7 +83,7 @@ export default function HomeTab() {
 
           {/* Date filters */}
           <View style={styles.dateFilterContainer}>
-            {Object.keys(DATE_FILTERS).map((filterKey) => (
+            {Object.keys(DATE_FILTER_OPTIONS).map((filterKey) => (
               <TouchableOpacity
                 key={`date-filter-${filterKey}`}
                 style={[
@@ -72,7 +103,7 @@ export default function HomeTab() {
                       styles.activeDateFilterText,
                   ]}
                 >
-                  {DATE_FILTERS[filterKey as DateFilterKey]}
+                  {DATE_FILTER_OPTIONS[filterKey as DateFilterKey]}
                 </Text>
               </TouchableOpacity>
             ))}
