@@ -1,18 +1,18 @@
 import { eq } from "drizzle-orm";
 import { router } from "expo-router";
-import { Alert, ScrollView, View } from "react-native";
 import { useMemo, useState } from "react";
+import { Alert, ScrollView, View } from "react-native";
 
+import { ScreenWrapper } from "@/components/layouts";
 import { Button, Input, Select, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
-import { formatCurrency } from "@/lib/formatters";
-import { scale, verticalScale } from "@/lib/scaling";
-import { ScreenWrapper } from "@/components/layouts";
 import { TransactionTable, WalletTable } from "@/database/schema";
 import { transactionTypes } from "@/features/transaction/constants";
 import { useTransactionCategories } from "@/features/transaction/hooks";
 import { useWallets } from "@/features/wallet/hooks";
+import { formatCurrency } from "@/lib/formatters";
+import { scale, verticalScale } from "@/lib/scaling";
 
 const transactionTypeOptions = Object.keys(transactionTypes).map((key) => ({
   label: transactionTypes[key as keyof typeof transactionTypes],

@@ -1,14 +1,14 @@
-import { Alert, ScrollView, View } from "react-native";
 import { router } from "expo-router";
 import { useState } from "react";
+import { Alert, ScrollView, View } from "react-native";
 
+import { ScreenWrapper } from "@/components/layouts";
 import { Button, Input, Select, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
-import { scale, verticalScale } from "@/lib/scaling";
-import { ScreenWrapper } from "@/components/layouts";
 import { WalletTable } from "@/database/schema";
 import { walletTypes } from "@/features/wallet/constants";
+import { scale, verticalScale } from "@/lib/scaling";
 
 const walletTypeOptions = Object.keys(walletTypes).map((key) => ({
   label: walletTypes[key as keyof typeof walletTypes],

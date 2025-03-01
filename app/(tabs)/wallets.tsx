@@ -2,9 +2,9 @@ import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { scale, verticalScale } from "@/lib/scaling";
 import { ScreenWrapper } from "@/components/layouts";
 import { Text } from "@/components/ui";
+import { scale, verticalScale } from "@/lib/scaling";
 
 export default function TransactionsTab() {
   return (

@@ -1,6 +1,7 @@
-import { type TransactionType } from "@/database/schema";
 import { Feather } from "@expo/vector-icons";
 import { ComponentProps } from "react";
+
+import { type TransactionType } from "@/database/schema";
 
 export const transactionTypes: Record<TransactionType, string> = {
   expense: "Gasto",

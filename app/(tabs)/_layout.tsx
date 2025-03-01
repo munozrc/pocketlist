@@ -1,5 +1,5 @@
-import { router, Tabs } from "expo-router";
 import { Feather } from "@expo/vector-icons";
+import { router, Tabs } from "expo-router";
 import { StyleSheet } from "react-native";
 
 import { Button } from "@/components/ui/Button";

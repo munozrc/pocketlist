@@ -1,19 +1,19 @@
-import { endOfToday, startOfToday } from "date-fns";
 import { Feather } from "@expo/vector-icons";
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { endOfToday, startOfToday } from "date-fns";
 import { useState } from "react";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { colors } from "@/constants/theme";
-import { formatCurrency } from "@/lib/formatters";
-import { scale, verticalScale } from "@/lib/scaling";
 import { ScreenWrapper } from "@/components/layouts";
 import { Text } from "@/components/ui";
-import { useTotalBalance } from "@/features/wallet/hooks";
+import { colors } from "@/constants/theme";
+import { TransactionCard } from "@/features/transaction/components";
 import {
   useTransactions,
   useTransactionSummary,
 } from "@/features/transaction/hooks";
-import { TransactionCard } from "@/features/transaction/components";
+import { useTotalBalance } from "@/features/wallet/hooks";
+import { formatCurrency } from "@/lib/formatters";
+import { scale, verticalScale } from "@/lib/scaling";
 
 const DATE_FILTERS = {
   TODAY: "Hoy",

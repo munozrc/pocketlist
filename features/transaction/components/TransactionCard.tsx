@@ -1,11 +1,11 @@
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 
+import { Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
+import { TransactionTable } from "@/database/schema";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
-import { Text } from "@/components/ui";
-import { TransactionTable } from "@/database/schema";
 
 import { transactionCategoryIcons } from "../constants";
 
