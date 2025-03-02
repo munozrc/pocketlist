@@ -61,12 +61,14 @@ type DateFilterKey = keyof typeof DATE_FILTER_OPTIONS;
 
 export default function HomeTab() {
   const [selectedDateFilter, setSelectedDateFilter] =
-    useState<DateFilterKey>("MONTH");
+    useState<DateFilterKey>("WEEK");
   const { totalExpenses, totalIncome } = useTransactionSummary(
     DATE_FILTER_VALUES[selectedDateFilter]
   );
+  const { transactions } = useTransactions(
+    DATE_FILTER_VALUES[selectedDateFilter]
+  );
   const { totalBalance } = useTotalBalance();
-  const { transactions } = useTransactions();
 
   return (
     <ScreenWrapper>

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 
 import { ScreenWrapper } from "@/components/layouts";
-import { Button, Input, Select, Text } from "@/components/ui";
+import { Button, DatePicker, Input, Select, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { TransactionTable, WalletTable } from "@/database/schema";
@@ -63,7 +63,8 @@ export default function CreateTransaction() {
   };
 
   const handleSubmit = async () => {
-    const { amount, category, description, title, type, walletId } = formState;
+    const { amount, category, description, title, type, walletId, createdAt } =
+      formState;
     const newErrors: Partial<TransactionErrorsState> = {};
 
     if (status === "pending" || status === "success") {
@@ -101,6 +102,8 @@ export default function CreateTransaction() {
       title: title?.trim() ?? "",
       type: type ?? "income",
       walletId: walletId ?? 0,
+      updatedAt: createdAt,
+      createdAt,
     };
 
     try {
@@ -253,6 +256,13 @@ export default function CreateTransaction() {
                 {errors.amount}
               </Text>
             )}
+          </View>
+          <View>
+            <DatePicker
+              value={formState.createdAt}
+              onChangeDate={handleChange("createdAt")}
+              isError={!!errors.createdAt}
+            />
           </View>
           <Button
             onPress={handleSubmit}
