@@ -1,4 +1,5 @@
-import { Feather } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { type ComponentProps } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { Text } from "@/components/ui";
@@ -7,21 +8,26 @@ import { TransactionTable } from "@/database/schema";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 
-import { transactionCategoryIcons } from "../constants";
-
 const dateFormat = Intl.DateTimeFormat("es-CO", {
   dateStyle: "short",
   timeStyle: "short",
 });
 
 type TransactionCardProps = typeof TransactionTable.$inferSelect & {
-  categoryName?: string;
+  categoryColor: string;
+  categoryIcon: string;
+  categoryName: string;
 };
+
+type IconName = NonNullable<
+  ComponentProps<typeof MaterialCommunityIcons>["name"]
+>;
 
 export function TransactionCard({
   type,
   title,
-  category,
+  categoryColor,
+  categoryIcon,
   categoryName,
   amount,
   createdAt,
@@ -29,10 +35,10 @@ export function TransactionCard({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.icon}>
-          <Feather
-            name={transactionCategoryIcons[category] ?? "credit-card"}
-            size={scale(16)}
+        <View style={[styles.icon, { backgroundColor: categoryColor }]}>
+          <MaterialCommunityIcons
+            name={categoryIcon as IconName}
+            size={scale(20)}
           />
         </View>
         <View style={{ alignItems: "flex-start", justifyContent: "center" }}>

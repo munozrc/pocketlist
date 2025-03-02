@@ -52,16 +52,14 @@ export default function CreateWallet() {
     setStatus("pending");
 
     const payload: WalletFormState = {
-      balance: balance,
-      currency: "COP",
-      name: name?.trim() ?? "",
-      totalExpenses: 0,
+      name: name?.trim(),
       totalIncome: balance,
-      type: type ?? "bank",
+      balance,
+      type,
     };
 
     try {
-      await db.insert(WalletTable).values([payload]);
+      await db.insert(WalletTable).values(payload);
       setStatus("success");
 
       Alert.alert("Éxito", "Billetera creada correctamente.", [

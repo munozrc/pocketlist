@@ -1,14 +1,20 @@
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import { Stack } from "expo-router";
+import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { db, sqliteDb } from "@/database/init";
+import { db, initializeDatabase, sqliteDb } from "@/database/init";
 import migrations from "@/database/migrations/migrations";
 
 export default function RootLayout() {
-  useMigrations(db, migrations);
+  const { success, error } = useMigrations(db, migrations);
   useDrizzleStudio(sqliteDb);
+
+  useEffect(() => {
+    if (!success || error) return;
+    void initializeDatabase();
+  }, [success, error]);
 
   return (
     <SafeAreaProvider>

@@ -34,6 +34,8 @@ async function getAllTransactions(filters: GetAllTransactionFilters) {
         ...getTableColumns(TransactionTable),
         category: TransactionCategoryTable.id,
         categoryName: TransactionCategoryTable.name,
+        categoryIcon: TransactionCategoryTable.defaultIcon,
+        categoryColor: TransactionCategoryTable.themeColor,
       })
       .from(TransactionTable)
       .innerJoin(

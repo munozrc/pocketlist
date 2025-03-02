@@ -23,22 +23,26 @@ export type Currency =
   | "INR";
 
 const timestamps = {
-  createdAt: integer("created_at", { mode: "timestamp" }).default(
-    sql`(unixepoch())`
-  ),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
   updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
     .default(sql`(unixepoch())`)
     .$onUpdate(() => new Date()),
 };
 
 export const WalletTable = sqliteTable("wallets", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
-  name: text().notNull(),
-  balance: real().notNull().default(0),
-  type: text().notNull().$type<WalletType>(),
-  currency: text().$type<Currency>().default("COP"),
-  totalExpenses: real("total_expenses").notNull().default(0),
-  totalIncome: real("total_income").notNull().default(0),
+  name: text().notNull().default(""),
+  image: text(),
+  defaultIcon: text("default_icon").default("layers-outline").notNull(),
+  themeColor: text("theme_color").default("#007aff").notNull(),
+  balance: real().default(0).notNull(),
+  type: text().notNull().$type<WalletType>().default("cash"),
+  currency: text().$type<Currency>().default("COP").notNull(),
+  totalExpenses: real("total_expenses").default(0).notNull(),
+  totalIncome: real("total_income").default(0).notNull(),
   ...timestamps,
 });
 
@@ -48,6 +52,8 @@ export const TransactionCategoryTable = sqliteTable("transaction_categories", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
   name: text().notNull(),
   type: text().notNull().$type<TransactionType>(),
+  defaultIcon: text("default_icon").notNull(),
+  themeColor: text("theme_color").notNull(),
   ...timestamps,
 });
 
@@ -57,18 +63,16 @@ export const TransactionTable = sqliteTable("transactions", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
   walletId: int("wallet_id")
     .notNull()
-    .references(() => WalletTable.id),
-  icon: text(),
-  title: text().notNull(),
+    .references(() => WalletTable.id, { onDelete: "cascade" }),
+  title: text().notNull().default(""),
   amount: real().notNull(),
-  type: text().notNull().$type<TransactionType>(),
-  status: text().$type<TransactionStatus>().default("completed"),
-  currency: text().$type<Currency>().default("COP"),
-  category: int()
-    .notNull()
-    .references(() => TransactionCategoryTable.id),
+  type: text().notNull().$type<TransactionType>().default("income"),
+  status: text().$type<TransactionStatus>().default("completed").notNull(),
+  currency: text().$type<Currency>().default("COP").notNull(),
+  category: int().references(() => TransactionCategoryTable.id, {
+    onDelete: "set null",
+  }),
   description: text(),
-  isRecurring: integer("is_recurring", { mode: "boolean" }).default(false),
   receiptUrl: text("receipt_url"),
   ...timestamps,
 });

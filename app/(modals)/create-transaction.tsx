@@ -63,8 +63,16 @@ export default function CreateTransaction() {
   };
 
   const handleSubmit = async () => {
-    const { amount, category, description, title, type, walletId, createdAt } =
-      formState;
+    const {
+      amount,
+      category,
+      description,
+      title,
+      type,
+      walletId,
+      createdAt = new Date(),
+    } = formState;
+
     const newErrors: Partial<TransactionErrorsState> = {};
 
     if (status === "pending" || status === "success") {
@@ -95,20 +103,20 @@ export default function CreateTransaction() {
     setStatus("pending");
 
     const payload: TransactionFormState = {
-      amount: amount ?? 0,
-      category: category ?? 0,
-      description: description?.trim(),
-      status: "completed",
-      title: title?.trim() ?? "",
-      type: type ?? "income",
-      walletId: walletId ?? 0,
-      updatedAt: createdAt,
+      type,
+      category,
       createdAt,
+      updatedAt: createdAt,
+      amount: amount as number,
+      description: description?.trim(),
+      walletId: walletId as number,
+      status: "completed",
+      title: title?.trim(),
     };
 
     try {
       const walletFound = await db.query.WalletTable.findFirst({
-        where: (w, { eq }) => eq(w.id, walletId ?? 0),
+        where: (w, { eq }) => eq(w.id, payload.walletId),
       });
 
       if (!walletFound) {
@@ -146,7 +154,7 @@ export default function CreateTransaction() {
         .where(eq(WalletTable.id, walletFound.id))
         .execute();
 
-      await db.insert(TransactionTable).values([payload]);
+      await db.insert(TransactionTable).values(payload);
 
       setStatus("success");
 
