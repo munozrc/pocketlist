@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: scale(12),
   },
   placeholder: {
-    color: colors.neutral500,
+    color: colors.grayDark,
   },
   error: {
     borderColor: colors.red,
