@@ -15,7 +15,7 @@ type TextProps = NativeTextProps & {
 
 export function Text({
   children,
-  color = colors.neutral800,
+  color = colors.white,
   size = 12,
   fontWeight = 400,
   style,

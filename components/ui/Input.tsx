@@ -48,6 +48,7 @@ export function Input<T>({
       <TextInput
         style={[styles.input, textStyle]}
         value={value ? String(value) : undefined}
+        placeholderTextColor={colors.grayDark}
         onChangeText={handleChange}
         {...restOfProps}
       />
@@ -58,14 +59,18 @@ export function Input<T>({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: verticalScale(8),
-    borderColor: colors.neutral300,
-    paddingVertical: verticalScale(7),
+    flexDirection: "row",
+    alignItems: "center",
+    height: verticalScale(44),
+    borderRadius: verticalScale(12),
+    borderColor: colors.black,
     paddingHorizontal: scale(10),
+    backgroundColor: colors.darkBlue,
     borderWidth: scale(1),
   },
   input: {
     flex: 1,
+    color: colors.white,
     fontSize: scale(12),
   },
   error: {

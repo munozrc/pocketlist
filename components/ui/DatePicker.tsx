@@ -86,9 +86,10 @@ export function DatePicker({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: verticalScale(8),
-    borderColor: colors.neutral300,
-    paddingVertical: verticalScale(14),
+    borderRadius: verticalScale(12),
+    borderColor: colors.darkBlue,
+    backgroundColor: colors.darkBlue,
+    paddingVertical: verticalScale(13),
     paddingHorizontal: scale(13),
     borderWidth: scale(1),
   },

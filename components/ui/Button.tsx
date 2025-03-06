@@ -14,6 +14,7 @@ interface ButtonProps {
   children: PressableProps["children"];
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  variant?: "primary" | "secondary";
   onPress?: (event: GestureResponderEvent) => void;
 }
 
@@ -21,6 +22,7 @@ export function Button({
   children,
   disabled = false,
   style,
+  variant = "primary",
   onPress,
 }: ButtonProps) {
   return (
@@ -29,6 +31,7 @@ export function Button({
       disabled={disabled}
       style={({ pressed }) => [
         styles.base,
+        styles[variant],
         pressed && styles.pressed,
         disabled && styles.disabled,
         style,
@@ -44,15 +47,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: verticalScale(8),
-    backgroundColor: colors.lightBlue,
+    borderRadius: verticalScale(12),
     borderCurve: "continuous",
-    height: verticalScale(52),
+    height: verticalScale(40),
+  },
+  primary: {
+    backgroundColor: colors.lightBlue,
+  },
+  secondary: {
+    backgroundColor: colors.darkBlue,
   },
   pressed: {
     opacity: 0.7,
   },
   disabled: {
-    backgroundColor: colors.neutral700,
+    backgroundColor: colors.grayLight,
   },
 });

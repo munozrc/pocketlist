@@ -32,12 +32,13 @@ export function Select<T>({
         style={styles.select}
         selectedValue={value}
         onValueChange={onChange}
+        dropdownIconColor={colors.lightBlue}
         {...restOfProps}
       >
         <Picker.Item
           value=""
           label={defaultOptionText}
-          style={{ ...styles.option, color: colors.neutral500 }}
+          style={{ ...styles.option, color: colors.grayDark }}
         />
         {options.map((item) => (
           <Picker.Item
@@ -55,9 +56,10 @@ export function Select<T>({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: verticalScale(8),
-    borderColor: colors.neutral300,
-    padding: verticalScale(2),
+    borderRadius: verticalScale(12),
+    backgroundColor: colors.darkBlue,
+    borderColor: colors.darkBlue,
+    padding: verticalScale(1),
     borderWidth: scale(1),
   },
   select: {
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   },
   option: {
     fontSize: scale(12),
-    color: colors.black,
+    color: colors.grayDark,
   },
   error: {
     borderColor: colors.red,

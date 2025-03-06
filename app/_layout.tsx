@@ -21,11 +21,11 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="(modals)/create-transaction"
-          options={{ presentation: "modal" }}
+          options={{ presentation: "transparentModal" }}
         />
         <Stack.Screen
           name="(modals)/create-wallet"
-          options={{ presentation: "modal" }}
+          options={{ presentation: "transparentModal" }}
         />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>

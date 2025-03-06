@@ -1,9 +1,10 @@
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import { ScreenWrapper } from "@/components/layouts";
-import { Text } from "@/components/ui";
+import { Button, Text } from "@/components/ui";
+import { colors } from "@/constants/theme";
 import { scale, verticalScale } from "@/lib/scaling";
 
 export default function TransactionsTab() {
@@ -12,14 +13,11 @@ export default function TransactionsTab() {
       <ScrollView>
         <View style={styles.container}>
           <Text fontWeight="600" size={25}>
-            Billeteras
+            Mis Billeteras
           </Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => router.push("/(modals)/create-wallet")}
-          >
-            <Feather name="plus" size={24} color="white" />
-          </TouchableOpacity>
+          <Button onPress={() => router.push("/(modals)/create-wallet")}>
+            <Feather name="plus" size={24} color={colors.black} />
+          </Button>
         </View>
       </ScrollView>
     </ScreenWrapper>
@@ -29,16 +27,8 @@ export default function TransactionsTab() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: verticalScale(20),
+    paddingTop: verticalScale(12),
+    paddingHorizontal: scale(20),
     gap: verticalScale(10),
-  },
-  button: {
-    borderRadius: 30,
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: "#007AFF",
-    paddingVertical: verticalScale(8),
-    alignItems: "center",
-    gap: scale(4),
   },
 });

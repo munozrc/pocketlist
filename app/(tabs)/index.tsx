@@ -11,11 +11,12 @@ import {
   startOfYear,
   startOfYesterday,
 } from "date-fns";
+import { router } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
 import { ScreenWrapper } from "@/components/layouts";
-import { Text } from "@/components/ui";
+import { Button, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { TransactionCard } from "@/features/transaction/components";
 import {
@@ -150,6 +151,12 @@ export default function HomeTab() {
           </View>
         </View>
       </ScrollView>
+      <Button
+        style={styles.button}
+        onPress={() => router.push("/(modals)/create-transaction")}
+      >
+        <Feather name="plus" color={colors.black} size={30} />
+      </Button>
     </ScreenWrapper>
   );
 }
@@ -223,5 +230,14 @@ const styles = StyleSheet.create({
   transactionList: {
     flex: 1,
     gap: scale(6),
+  },
+  button: {
+    position: "absolute",
+    borderRadius: verticalScale(30),
+    width: verticalScale(48),
+    height: verticalScale(48),
+    bottom: verticalScale(20),
+    aspectRatio: 1,
+    right: "43%",
   },
 });

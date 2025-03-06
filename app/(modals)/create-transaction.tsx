@@ -276,7 +276,7 @@ export default function CreateTransaction() {
             onPress={handleSubmit}
             disabled={status === "pending" || status === "success"}
           >
-            <Text color={colors.white} size={14} fontWeight={600}>
+            <Text color={colors.black} size={14} fontWeight={600}>
               Crear
             </Text>
           </Button>
