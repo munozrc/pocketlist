@@ -75,10 +75,10 @@ export default function HomeTab() {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.balanceContainer}>
-            <Text size={13} color={colors.neutral800}>
-              Saldo Disponible
+            <Text size={9} color={colors.grayMedium} fontWeight={600}>
+              SALDO DISPONIBLE
             </Text>
-            <Text size={27} color={colors.neutral800} fontWeight="600">
+            <Text size={26} color={colors.white} fontWeight="600">
               {formatCurrency(totalBalance)}
             </Text>
           </View>
@@ -113,36 +113,32 @@ export default function HomeTab() {
 
           {/* Income and expense card */}
           <View style={styles.summaryCard}>
-            <View style={styles.summaryRow}>
-              <View
-                style={[styles.iconBadge, { backgroundColor: colors.green }]}
-              >
-                <Feather name="arrow-up" color={colors.black} size={16} />
-              </View>
+            <View
+              style={[styles.summaryRow, { backgroundColor: colors.green }]}
+            >
+              <Feather name="arrow-up-left" color={colors.black} size={24} />
               <View>
-                <Text style={styles.summaryLabel}>Ingresos</Text>
                 <Text style={styles.summaryAmount}>
                   {formatCurrency(totalIncome)}
                 </Text>
+                <Text style={styles.summaryLabel}>Ingresos</Text>
               </View>
             </View>
 
-            <View style={styles.summaryRow}>
-              <View style={[styles.iconBadge, { backgroundColor: colors.red }]}>
-                <Feather name="arrow-down" color={colors.black} size={16} />
-              </View>
+            <View style={[styles.summaryRow, { backgroundColor: colors.red }]}>
+              <Feather name="arrow-down-right" color={colors.black} size={24} />
               <View>
-                <Text style={styles.summaryLabel}>Gastos</Text>
                 <Text style={styles.summaryAmount}>
                   {formatCurrency(totalExpenses)}
                 </Text>
+                <Text style={styles.summaryLabel}>Gastos</Text>
               </View>
             </View>
           </View>
         </View>
         <View style={styles.transactionSection}>
-          <Text size={13} fontWeight={500}>
-            Transacciones Recientes
+          <Text size={13} fontWeight={500} color={colors.white}>
+            Transacciones
           </Text>
           <View style={styles.transactionList}>
             {transactions.map((transaction) => (
@@ -163,71 +159,66 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: verticalScale(14),
     paddingHorizontal: verticalScale(14),
-    gap: scale(16),
+    gap: scale(8),
   },
   balanceContainer: {
     flex: 1,
+    marginBottom: verticalScale(20),
   },
   dateFilterContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: colors.neutral100,
+    backgroundColor: colors.darkBlue,
     borderRadius: verticalScale(30),
     overflow: "hidden",
   },
   dateFilterButton: {
     flex: 1,
     paddingVertical: verticalScale(8),
-    paddingHorizontal: scale(6),
-    alignItems: "center",
-    justifyContent: "center",
     borderRadius: verticalScale(30),
+    paddingHorizontal: scale(6),
+    justifyContent: "center",
+    alignItems: "center",
   },
   dateFilterText: {
     fontWeight: 500,
-    color: colors.neutral900,
+    color: colors.grayLight,
   },
   activeDateFilterButton: {
-    backgroundColor: colors.neutral800,
+    backgroundColor: colors.lightBlue,
   },
   activeDateFilterText: {
-    fontWeight: 600,
-    color: colors.neutral100,
+    fontWeight: 700,
+    color: colors.black,
   },
   summaryCard: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: colors.neutral100,
-    borderRadius: verticalScale(8),
-    padding: verticalScale(10),
+    gap: scale(6),
   },
   summaryRow: {
     flex: 1,
+    height: scale(52),
     flexDirection: "row",
     alignItems: "center",
-    gap: verticalScale(8),
-  },
-  iconBadge: {
-    width: scale(26),
-    aspectRatio: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: verticalScale(50),
+    borderRadius: verticalScale(12),
+    paddingHorizontal: scale(12),
+    gap: verticalScale(6),
   },
   summaryLabel: {
     fontSize: verticalScale(9),
-    color: colors.neutral500,
+    color: colors.black,
   },
   summaryAmount: {
-    fontSize: verticalScale(11),
-    color: colors.neutral800,
-    fontWeight: 500,
+    fontSize: verticalScale(12),
+    color: colors.black,
+    fontWeight: 700,
   },
   transactionSection: {
     flex: 1,
     paddingVertical: verticalScale(14),
     paddingHorizontal: verticalScale(14),
-    gap: scale(12),
+    gap: scale(6),
   },
   transactionList: {
     flex: 1,

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: verticalScale(8),
-    backgroundColor: colors.neutral800,
+    backgroundColor: colors.lightBlue,
     borderCurve: "continuous",
     height: verticalScale(52),
   },

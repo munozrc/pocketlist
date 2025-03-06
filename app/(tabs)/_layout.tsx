@@ -13,7 +13,7 @@ export default function TabsLayout() {
         screenOptions={{
           tabBarActiveTintColor: "#007AFF",
           tabBarShowLabel: false,
-          tabBarStyle: { paddingTop: 4 },
+          tabBarStyle: { paddingTop: 4, backgroundColor: colors.black },
           headerShown: false,
         }}
       >
@@ -54,7 +54,7 @@ export default function TabsLayout() {
         style={styles.button}
         onPress={() => router.push("/(modals)/create-transaction")}
       >
-        <Feather name="plus" color={colors.white} size={30} />
+        <Feather name="plus" color={colors.black} size={30} />
       </Button>
     </>
   );

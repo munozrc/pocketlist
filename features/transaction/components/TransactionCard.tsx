@@ -38,27 +38,27 @@ export function TransactionCard({
         <View style={[styles.icon, { backgroundColor: categoryColor }]}>
           <MaterialCommunityIcons
             name={categoryIcon as IconName}
-            size={scale(20)}
+            size={scale(24)}
           />
         </View>
         <View style={{ alignItems: "flex-start", justifyContent: "center" }}>
-          <Text size={11} fontWeight={500}>
+          <Text size={11} fontWeight="bold" color={colors.white}>
             {title}
           </Text>
-          <Text size={8} color={colors.neutral400}>
+          <Text size={9} color={colors.grayDark}>
             {categoryName}
           </Text>
         </View>
       </View>
       <View style={{ alignItems: "flex-end", justifyContent: "center" }}>
         <Text
-          size={11}
+          size={12}
           fontWeight={500}
-          color={type === "income" ? "#008a2e" : "#e60000"}
+          color={type === "income" ? colors.green : colors.red}
         >
           {`${type === "income" ? "+" : "-"}${formatCurrency(amount, { style: "decimal" })}`}
         </Text>
-        <Text size={8} color={colors.neutral400}>
+        <Text size={9} color={colors.grayDark}>
           {dateFormat.format(createdAt ?? new Date())}
         </Text>
       </View>
@@ -71,11 +71,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: colors.neutral50,
+    backgroundColor: colors.darkBlue,
     paddingVertical: verticalScale(8),
     paddingLeft: scale(8),
     paddingRight: scale(12),
-    borderRadius: verticalScale(5),
+    borderRadius: verticalScale(12),
     borderCurve: "continuous",
     alignItems: "center",
   },
@@ -86,11 +86,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     aspectRatio: 1,
-    width: scale(36),
+    width: scale(40),
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.neutral200,
-    borderRadius: verticalScale(5),
+    borderRadius: verticalScale(8),
     borderCurve: "continuous",
   },
 });

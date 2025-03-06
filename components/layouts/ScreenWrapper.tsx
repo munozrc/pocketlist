@@ -12,14 +12,14 @@ type ScreenWrapperProps = {
 };
 
 export function ScreenWrapper({
-  backgroundColor = colors.white,
+  backgroundColor = colors.black,
   children,
   style,
 }: ScreenWrapperProps) {
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor }, style]}>
       {children}
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
     </SafeAreaView>
   );
 }
