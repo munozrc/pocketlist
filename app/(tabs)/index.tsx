@@ -64,10 +64,10 @@ export default function HomeTab() {
   const [selectedDateFilter, setSelectedDateFilter] =
     useState<DateFilterKey>("WEEK");
   const { totalExpenses, totalIncome } = useTransactionSummary(
-    DATE_FILTER_VALUES[selectedDateFilter]
+    DATE_FILTER_VALUES[selectedDateFilter],
   );
   const { transactions } = useTransactions(
-    DATE_FILTER_VALUES[selectedDateFilter]
+    DATE_FILTER_VALUES[selectedDateFilter],
   );
   const { totalBalance } = useTotalBalance();
 
@@ -88,6 +88,7 @@ export default function HomeTab() {
           <View style={styles.dateFilterContainer}>
             {Object.keys(DATE_FILTER_OPTIONS).map((filterKey) => (
               <TouchableOpacity
+                accessibilityRole="button"
                 key={`date-filter-${filterKey}`}
                 style={[
                   styles.dateFilterButton,

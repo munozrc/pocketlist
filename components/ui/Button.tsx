@@ -1,9 +1,9 @@
 import {
+  type GestureResponderEvent,
   Pressable,
   type PressableProps,
-  StyleSheet,
-  type GestureResponderEvent,
   type StyleProp,
+  StyleSheet,
   type ViewStyle,
 } from "react-native";
 
@@ -29,6 +29,7 @@ export function Button({
     <Pressable
       onPress={onPress}
       disabled={disabled}
+      accessibilityRole="button"
       style={({ pressed }) => [
         styles.base,
         styles[variant],

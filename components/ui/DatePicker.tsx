@@ -57,7 +57,10 @@ export function DatePicker({
           isError ? styles.error : undefined,
         ]}
       >
-        <Pressable onPress={() => setShowDatePicker(true)}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => setShowDatePicker(true)}
+        >
           <Text
             style={[
               styles.input,

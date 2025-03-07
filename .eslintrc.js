@@ -2,49 +2,19 @@
 module.exports = {
   parserOptions: {
     sourceType: "module",
+    ecmaVersion: "latest",
   },
   extends: [
     "expo",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
+    "plugin:react/recommended",
+    "plugin:react-native-a11y/ios",
     "prettier",
   ],
-  plugins: ["prettier", "import"],
-  settings: {
-    "import/resolver": {
-      typescript: {
-        alwaysTryTypes: true,
-      },
-      node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
-      },
-    },
-  },
+  parser: "@typescript-eslint/parser",
+  plugins: ["simple-import-sort"],
   rules: {
-    "prettier/prettier": [
-      "error",
-      {
-        trailingComma: "es5",
-        printWidth: 80,
-      },
-    ],
-    "import/order": [
-      "error",
-      {
-        groups: [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-        ],
-        "newlines-between": "always",
-        alphabetize: {
-          order: "asc",
-          caseInsensitive: true,
-        },
-      },
-    ],
+    "react/react-in-jsx-scope": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
   },
 };

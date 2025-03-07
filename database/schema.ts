@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { sqliteTable, text, integer, real, int } from "drizzle-orm/sqlite-core";
+import { int, integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export type WalletType =
   | "bank"

@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     width: scale(40),
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.neutral200,
+    backgroundColor: colors.darkBlue,
     borderRadius: verticalScale(8),
     borderCurve: "continuous",
   },
