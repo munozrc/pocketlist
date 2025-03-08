@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "99927790-c6bd-425e-a0a9-de69425c891e",
+  "id": "de5f6b0f-e2ed-4b77-9a6a-80acb93d1223",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "transaction_categories": {
@@ -210,29 +210,6 @@
           "autoincrement": false,
           "default": "''"
         },
-        "image": {
-          "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "default_icon": {
-          "name": "default_icon",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'layers-outline'"
-        },
-        "theme_color": {
-          "name": "theme_color",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'#007aff'"
-        },
         "balance": {
           "name": "balance",
           "type": "real",
@@ -272,6 +249,13 @@
           "notNull": true,
           "autoincrement": false,
           "default": 0
+        },
+        "financial_entity_id": {
+          "name": "financial_entity_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "created_at": {
           "name": "created_at",

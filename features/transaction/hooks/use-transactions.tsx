@@ -40,7 +40,7 @@ async function getAllTransactions(filters: GetAllTransactionFilters) {
       .from(TransactionTable)
       .innerJoin(
         TransactionCategoryTable,
-        eq(TransactionTable.category, TransactionCategoryTable.id)
+        eq(TransactionTable.category, TransactionCategoryTable.id),
       )
       .where(filtersQuery.length ? and(...filtersQuery) : undefined)
       .orderBy(desc(TransactionTable.createdAt));

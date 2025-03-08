@@ -11,8 +11,9 @@ module.exports = {
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["simple-import-sort"],
+  plugins: ["simple-import-sort", "prettier"],
   rules: {
+    "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",

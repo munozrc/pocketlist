@@ -165,7 +165,7 @@ export default function CreateTransaction() {
       setStatus("error");
       Alert.alert(
         "Error",
-        "Hubo un problema al registrar la transferencia. Inténtalo de nuevo."
+        "Hubo un problema al registrar la transferencia. Inténtalo de nuevo.",
       );
     }
   };

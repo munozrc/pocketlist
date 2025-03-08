@@ -4,7 +4,7 @@ export function formatCurrency(
     locale?: string;
     currency?: string;
     style?: keyof Intl.NumberFormatOptionsStyleRegistry;
-  }
+  },
 ): string {
   const {
     locale = "es-CO",

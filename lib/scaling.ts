@@ -12,12 +12,12 @@ const guidelineBaseHeight = 680;
 
 export function scale(size: number): number {
   return PixelRatio.roundToNearestPixel(
-    (shortDimension / guidelineBaseWidth) * size
+    (shortDimension / guidelineBaseWidth) * size,
   );
 }
 
 export function verticalScale(size: number): number {
   return PixelRatio.roundToNearestPixel(
-    (longDimension / guidelineBaseHeight) * size
+    (longDimension / guidelineBaseHeight) * size,
   );
 }

@@ -8,7 +8,7 @@ export function useTotalBalance() {
   const { data } = useLiveQuery(
     db
       .select({ totalBalance: sql<number>`SUM(${WalletTable.balance})` })
-      .from(WalletTable)
+      .from(WalletTable),
   );
 
   return { totalBalance: data?.[0]?.totalBalance ?? 0 };

@@ -28,14 +28,12 @@ CREATE TABLE `transactions` (
 CREATE TABLE `wallets` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text DEFAULT '' NOT NULL,
-	`image` text,
-	`default_icon` text DEFAULT 'layers-outline' NOT NULL,
-	`theme_color` text DEFAULT '#007aff' NOT NULL,
 	`balance` real DEFAULT 0 NOT NULL,
 	`type` text DEFAULT 'cash' NOT NULL,
 	`currency` text DEFAULT 'COP' NOT NULL,
 	`total_expenses` real DEFAULT 0 NOT NULL,
 	`total_income` real DEFAULT 0 NOT NULL,
+	`financial_entity_id` integer,
 	`created_at` integer DEFAULT (unixepoch()) NOT NULL,
 	`updated_at` integer DEFAULT (unixepoch()) NOT NULL
 );

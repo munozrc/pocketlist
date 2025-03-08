@@ -35,14 +35,12 @@ const timestamps = {
 export const WalletTable = sqliteTable("wallets", {
   id: int().notNull().primaryKey({ autoIncrement: true }),
   name: text().notNull().default(""),
-  image: text(),
-  defaultIcon: text("default_icon").default("layers-outline").notNull(),
-  themeColor: text("theme_color").default("#007aff").notNull(),
   balance: real().default(0).notNull(),
   type: text().notNull().$type<WalletType>().default("cash"),
   currency: text().$type<Currency>().default("COP").notNull(),
   totalExpenses: real("total_expenses").default(0).notNull(),
   totalIncome: real("total_income").default(0).notNull(),
+  financialEntityId: int("financial_entity_id"),
   ...timestamps,
 });
 

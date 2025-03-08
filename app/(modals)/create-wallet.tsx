@@ -1,12 +1,14 @@
+import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 
 import { ScreenWrapper } from "@/components/layouts";
-import { Button, Input, Select, Text } from "@/components/ui";
+import { Button, Select, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { WalletTable } from "@/database/schema";
+import { FinancialEntityPicker } from "@/features/wallet/components";
 import { walletTypes } from "@/features/wallet/constants";
 import { scale, verticalScale } from "@/lib/scaling";
 
@@ -25,12 +27,16 @@ export default function CreateWallet() {
   const [status, setStatus] = useState<WalletFormStatus>("idle");
 
   const handleChange = (name: keyof typeof formState) => (value?: unknown) => {
-    setFormState((prev) => ({ ...prev, [name]: value }));
+    setFormState((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === "type" && { financialEntityId: undefined }),
+    }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleSubmit = async () => {
-    const { balance = 0, name, type } = formState;
+    const { balance = 0, name, type, financialEntityId } = formState;
     const newErrors: Partial<WalletErrorsState> = {};
 
     if (status === "pending" || status === "success") {
@@ -43,6 +49,9 @@ export default function CreateWallet() {
     if (!type || typeof walletTypes[type] !== "string") {
       newErrors.type = "Selecciona un tipo";
     }
+    if (!financialEntityId) {
+      newErrors.financialEntityId = "Selecciona un banco o entidad financiera.";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -54,6 +63,7 @@ export default function CreateWallet() {
     const payload: WalletFormState = {
       name: name?.trim(),
       totalIncome: balance,
+      financialEntityId: financialEntityId ?? null,
       balance,
       type,
     };
@@ -69,7 +79,7 @@ export default function CreateWallet() {
       setStatus("error");
       Alert.alert(
         "Error",
-        "Hubo un problema al crear la billetera. Inténtalo de nuevo."
+        "Hubo un problema al crear la billetera. Inténtalo de nuevo.",
       );
     }
   };
@@ -79,43 +89,43 @@ export default function CreateWallet() {
       <ScrollView>
         <View
           style={{
-            width: "100%",
+            flex: 1,
             paddingVertical: verticalScale(14),
             paddingHorizontal: verticalScale(14),
-            gap: scale(16),
+            gap: scale(20),
           }}
         >
-          <Text size={25} fontWeight="700">
-            Crear Billetera
-          </Text>
-          <View>
-            <Input
-              value={formState.name}
-              placeholder="Nombre"
-              onChangeText={handleChange("name")}
-              isError={!!errors.name}
-            />
-            {errors.name && (
-              <Text size={12} color={colors.red}>
-                {errors.name}
-              </Text>
-            )}
+          <View style={{ justifyContent: "flex-start" }}>
+            <Button
+              variant="secondary"
+              style={{ width: scale(45), height: scale(45) }}
+              onPress={() => router.back()}
+            >
+              <Feather
+                name="arrow-left"
+                size={scale(20)}
+                color={colors.white}
+              />
+            </Button>
           </View>
-          <View>
-            <Input
-              keyboardType="number-pad"
-              value={formState.balance}
-              placeholder="Saldo"
-              onChangeNumber={handleChange("balance")}
-              isError={!!errors.balance}
-            />
-            {errors.balance && (
-              <Text size={12} color={colors.red}>
-                {errors.balance}
-              </Text>
-            )}
+          <View
+            style={{ alignItems: "flex-start", paddingTop: verticalScale(15) }}
+          >
+            <Text size={34} fontWeight={600}>
+              Crear
+            </Text>
+            <Text
+              size={34}
+              fontWeight={600}
+              style={{ lineHeight: verticalScale(35) }}
+            >
+              Una Billetera
+            </Text>
           </View>
-          <View>
+          <View style={{ gap: verticalScale(4) }}>
+            <Text color={colors.grayLight} size={13}>
+              ¿Cuál es el tipo de tu billetera?
+            </Text>
             <Select
               value={formState.type}
               options={walletTypeOptions}
@@ -129,6 +139,23 @@ export default function CreateWallet() {
               </Text>
             )}
           </View>
+          {(formState.type === undefined || formState.type !== "other") && (
+            <View style={{ gap: verticalScale(4) }}>
+              <Text color={colors.grayLight} size={13}>
+                ¿Cuál es tu banco o entidad financiera?
+              </Text>
+              <FinancialEntityPicker
+                walletType={formState.type}
+                value={formState.financialEntityId}
+                onChange={handleChange("financialEntityId")}
+              />
+              {errors.financialEntityId && (
+                <Text size={12} color={colors.red}>
+                  {errors.financialEntityId}
+                </Text>
+              )}
+            </View>
+          )}
           <Button
             onPress={handleSubmit}
             disabled={status === "pending" || status === "success"}
