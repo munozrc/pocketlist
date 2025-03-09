@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     borderColor: colors.darkBlue,
     padding: verticalScale(1),
     borderWidth: scale(1),
+    overflow: "hidden",
   },
   select: {
     flex: 1,

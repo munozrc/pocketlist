@@ -9,7 +9,8 @@ import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { WalletTable } from "@/database/schema";
 import { FinancialEntityPicker } from "@/features/wallet/components";
-import { walletTypes } from "@/features/wallet/constants";
+import { financialEntities, walletTypes } from "@/features/wallet/constants";
+import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 
 const walletTypeOptions = Object.keys(walletTypes).map((key) => ({
@@ -25,6 +26,10 @@ export default function CreateWallet() {
   const [formState, setFormState] = useState<Partial<WalletFormState>>({});
   const [errors, setErrors] = useState<Partial<WalletErrorsState>>({});
   const [status, setStatus] = useState<WalletFormStatus>("idle");
+
+  const financialEntitySelected = financialEntities.find(
+    (entity) => entity.id === formState.financialEntityId,
+  );
 
   const handleChange = (name: keyof typeof formState) => (value?: unknown) => {
     setFormState((prev) => ({
@@ -43,9 +48,6 @@ export default function CreateWallet() {
       return;
     }
 
-    if (!name || !name.trim().length) {
-      newErrors.name = "Ingresa un nombre";
-    }
     if (!type || typeof walletTypes[type] !== "string") {
       newErrors.type = "Selecciona un tipo";
     }
@@ -58,12 +60,16 @@ export default function CreateWallet() {
       return;
     }
 
+    if (!type || !financialEntityId || !financialEntitySelected) {
+      return;
+    }
+
     setStatus("pending");
 
     const payload: WalletFormState = {
-      name: name?.trim(),
       totalIncome: balance,
-      financialEntityId: financialEntityId ?? null,
+      name: name ? name.trim() : financialEntitySelected.name,
+      financialEntityId,
       balance,
       type,
     };
@@ -73,7 +79,7 @@ export default function CreateWallet() {
       setStatus("success");
 
       Alert.alert("Éxito", "Billetera creada correctamente.", [
-        { text: "OK", onPress: () => router.replace("/") },
+        { text: "OK", onPress: () => router.back() },
       ]);
     } catch {
       setStatus("error");
@@ -158,42 +164,46 @@ export default function CreateWallet() {
             <View
               style={{
                 flexDirection: "row",
-                gap: scale(8),
                 alignItems: "center",
+                gap: scale(3),
               }}
             >
               <Text color={colors.grayLight} size={13}>
-                Nombre
+                Ingresa un nombre
               </Text>
               <Text color={colors.grayDark} size={10}>
-                (opcional)
+                - Opcional
               </Text>
             </View>
             <Input
               value={formState.name}
               onChangeText={handleChange("name")}
-              placeholder="Ingresa un nombre..."
+              placeholder={
+                financialEntitySelected
+                  ? `Ejemplo: ${financialEntitySelected.name}`
+                  : "Ejemplo: Mi billetera"
+              }
             />
           </View>
           <View style={{ gap: verticalScale(4) }}>
             <View
               style={{
                 flexDirection: "row",
-                gap: scale(8),
                 alignItems: "center",
+                gap: scale(3),
               }}
             >
               <Text color={colors.grayLight} size={13}>
-                Saldo
+                Ingresa un saldo
               </Text>
               <Text color={colors.grayDark} size={10}>
-                (opcional)
+                - Opcional
               </Text>
             </View>
             <CurrencyInput
               value={formState.balance}
               onChangeNumber={handleChange("balance")}
-              placeholder="Ingresa un monto"
+              placeholder={formatCurrency(0)}
             />
           </View>
           <Button

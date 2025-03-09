@@ -38,7 +38,7 @@ export function FinancialEntityPicker({
           key={`item-${option.id}-${index}`}
           onPress={handlePress(option.id)}
           accessibilityRole="button"
-          style={styles.option}
+          style={[styles.option, value === option.id && styles.optionActive]}
         >
           <View style={styles.iconContainer}>
             <Image style={styles.icon} source={option.brandIcon} />
@@ -80,16 +80,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(10),
     paddingRight: scale(18),
     backgroundColor: colors.darkBlue,
+    borderColor: colors.darkBlue,
     gap: verticalScale(12),
     overflow: "hidden",
+    borderWidth: 2,
   },
   optionEmpty: {
     paddingHorizontal: scale(14),
     height: verticalScale(44),
   },
   optionActive: {
-    backgroundColor: colors.lightBlue,
-    color: colors.black,
+    borderColor: colors.lightBlue,
   },
   iconContainer: {
     width: scale(37),
