@@ -64,10 +64,12 @@ const styles = StyleSheet.create({
   },
   select: {
     flex: 1,
+    backgroundColor: colors.darkBlue,
   },
   option: {
     fontSize: scale(12),
-    color: colors.grayDark,
+    backgroundColor: colors.darkBlue,
+    color: colors.white,
   },
   error: {
     borderColor: colors.red,

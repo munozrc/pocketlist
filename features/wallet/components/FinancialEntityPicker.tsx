@@ -1,4 +1,5 @@
 import { Feather } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 
 import { Text } from "@/components/ui";
@@ -19,6 +20,12 @@ export function FinancialEntityPicker({
   walletType,
   onChange,
 }: FinancialEntityPickerProps) {
+  const entityOptions = useMemo(() => {
+    return financialEntities.filter((entity) =>
+      entity.supportedWalletTypes.some((type) => type === walletType),
+    );
+  }, [walletType]);
+
   const handlePress = (id: number) => () => {
     if (value === id) return onChange(undefined);
     onChange(id);
@@ -26,32 +33,35 @@ export function FinancialEntityPicker({
 
   return (
     <View style={styles.container}>
-      {financialEntities
-        .filter((entity) =>
-          entity.supportedWalletTypes.some((type) => type === walletType),
-        )
-        .map((option, index) => (
-          <Pressable
-            key={`item-${option.id}-${index}`}
-            onPress={handlePress(option.id)}
-            accessibilityRole="button"
-            style={styles.option}
+      {entityOptions.map((option, index) => (
+        <Pressable
+          key={`item-${option.id}-${index}`}
+          onPress={handlePress(option.id)}
+          accessibilityRole="button"
+          style={styles.option}
+        >
+          <View style={styles.iconContainer}>
+            <Image style={styles.icon} source={option.brandIcon} />
+          </View>
+          <Text size={13} style={{ flex: 1 }}>
+            {option.name}
+          </Text>
+          <View
+            style={[styles.check, value === option.id && styles.checkActive]}
           >
-            <View style={styles.iconContainer}>
-              <Image style={styles.icon} source={option.brandIcon} />
-            </View>
-            <Text size={13} style={{ flex: 1 }}>
-              {option.name}
-            </Text>
-            <View
-              style={[styles.check, value === option.id && styles.checkActive]}
-            >
-              {value === option.id && (
-                <Feather name="check" size={scale(18)} color={colors.black} />
-              )}
-            </View>
-          </Pressable>
-        ))}
+            {value === option.id && (
+              <Feather name="check" size={scale(18)} color={colors.black} />
+            )}
+          </View>
+        </Pressable>
+      ))}
+      {!entityOptions.length && (
+        <View style={[styles.option, styles.optionEmpty]}>
+          <Text size={12} color={colors.grayDark}>
+            No hay opciones disponibles
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -72,6 +82,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.darkBlue,
     gap: verticalScale(12),
     overflow: "hidden",
+  },
+  optionEmpty: {
+    paddingHorizontal: scale(14),
+    height: verticalScale(44),
   },
   optionActive: {
     backgroundColor: colors.lightBlue,

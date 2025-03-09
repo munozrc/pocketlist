@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 
 import { ScreenWrapper } from "@/components/layouts";
-import { Button, Select, Text } from "@/components/ui";
+import { Button, CurrencyInput, Input, Select, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { WalletTable } from "@/database/schema";
@@ -139,23 +139,63 @@ export default function CreateWallet() {
               </Text>
             )}
           </View>
-          {(formState.type === undefined || formState.type !== "other") && (
-            <View style={{ gap: verticalScale(4) }}>
-              <Text color={colors.grayLight} size={13}>
-                ¿Cuál es tu banco o entidad financiera?
+          <View style={{ gap: verticalScale(4) }}>
+            <Text color={colors.grayLight} size={13}>
+              ¿Cuál es tu banco o entidad financiera?
+            </Text>
+            <FinancialEntityPicker
+              walletType={formState.type}
+              value={formState.financialEntityId}
+              onChange={handleChange("financialEntityId")}
+            />
+            {errors.financialEntityId && (
+              <Text size={12} color={colors.red}>
+                {errors.financialEntityId}
               </Text>
-              <FinancialEntityPicker
-                walletType={formState.type}
-                value={formState.financialEntityId}
-                onChange={handleChange("financialEntityId")}
-              />
-              {errors.financialEntityId && (
-                <Text size={12} color={colors.red}>
-                  {errors.financialEntityId}
-                </Text>
-              )}
+            )}
+          </View>
+          <View style={{ gap: verticalScale(4) }}>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: scale(8),
+                alignItems: "center",
+              }}
+            >
+              <Text color={colors.grayLight} size={13}>
+                Nombre
+              </Text>
+              <Text color={colors.grayDark} size={10}>
+                (opcional)
+              </Text>
             </View>
-          )}
+            <Input
+              value={formState.name}
+              onChangeText={handleChange("name")}
+              placeholder="Ingresa un nombre..."
+            />
+          </View>
+          <View style={{ gap: verticalScale(4) }}>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: scale(8),
+                alignItems: "center",
+              }}
+            >
+              <Text color={colors.grayLight} size={13}>
+                Saldo
+              </Text>
+              <Text color={colors.grayDark} size={10}>
+                (opcional)
+              </Text>
+            </View>
+            <CurrencyInput
+              value={formState.balance}
+              onChangeNumber={handleChange("balance")}
+              placeholder="Ingresa un monto"
+            />
+          </View>
           <Button
             onPress={handleSubmit}
             disabled={status === "pending" || status === "success"}
