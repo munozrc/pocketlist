@@ -5,9 +5,12 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { ScreenWrapper } from "@/components/layouts";
 import { Button, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
+import { WalletCard } from "@/features/wallet/components";
+import { useWallets } from "@/features/wallet/hooks";
 import { scale, verticalScale } from "@/lib/scaling";
 
 export default function TransactionsTab() {
+  const { wallets } = useWallets();
   return (
     <ScreenWrapper>
       <ScrollView>
@@ -18,6 +21,11 @@ export default function TransactionsTab() {
           <Button onPress={() => router.push("/(modals)/create-wallet")}>
             <Feather name="plus" size={24} color={colors.black} />
           </Button>
+          <View style={styles.wallets}>
+            {wallets.map((wallet, index) => (
+              <WalletCard key={`wallet-${wallet.id}-${index}`} {...wallet} />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </ScreenWrapper>
@@ -29,6 +37,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: verticalScale(12),
     paddingHorizontal: scale(20),
-    gap: verticalScale(10),
+    gap: verticalScale(18),
+  },
+  wallets: {
+    flex: 1,
+    gap: verticalScale(20),
   },
 });
