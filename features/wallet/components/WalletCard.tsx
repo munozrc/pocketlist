@@ -35,9 +35,12 @@ export function WalletCard({
           </View>
           <View>
             <Text size={12} color={colors.grayLight}>
-              {name}
+              {name.toLowerCase() ===
+              financialEntitySelected?.name?.toLowerCase()
+                ? financialEntitySelected.name
+                : name}
             </Text>
-            <Text size={16} fontWeight={600}>
+            <Text size={14} fontWeight={600}>
               {formatCurrency(balance)}
             </Text>
           </View>
