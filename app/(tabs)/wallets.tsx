@@ -5,8 +5,8 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { ScreenWrapper } from "@/components/layouts";
 import { Button, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
-import { WalletCard } from "@/features/wallet/components";
-import { useWallets } from "@/features/wallet/hooks";
+import { WalletCard } from "@/features/wallets/components";
+import { useWallets } from "@/features/wallets/hooks";
 import { scale, verticalScale } from "@/lib/scaling";
 
 export default function TransactionsTab() {

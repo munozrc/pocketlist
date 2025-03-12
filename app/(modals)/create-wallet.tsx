@@ -8,8 +8,8 @@ import { Button, CurrencyInput, Input, Select, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { WalletTable } from "@/database/schema";
-import { FinancialEntityPicker } from "@/features/wallet/components";
-import { financialEntities, walletTypes } from "@/features/wallet/constants";
+import { FinancialEntityPicker } from "@/features/wallets/components";
+import { financialEntities, walletTypes } from "@/features/wallets/constants";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 

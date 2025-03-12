@@ -18,12 +18,12 @@ import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { ScreenWrapper } from "@/components/layouts";
 import { Button, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
-import { TransactionCard } from "@/features/transaction/components";
+import { TransactionCard } from "@/features/transactions/components";
 import {
   useTransactions,
   useTransactionSummary,
-} from "@/features/transaction/hooks";
-import { useTotalBalance } from "@/features/wallet/hooks";
+} from "@/features/transactions/hooks";
+import { useTotalBalance } from "@/features/wallets/hooks";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 

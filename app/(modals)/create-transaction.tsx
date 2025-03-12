@@ -8,9 +8,9 @@ import { Button, DatePicker, Input, Select, Text } from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { TransactionTable, WalletTable } from "@/database/schema";
-import { transactionTypes } from "@/features/transaction/constants";
-import { useTransactionCategories } from "@/features/transaction/hooks";
-import { useWallets } from "@/features/wallet/hooks";
+import { transactionTypes } from "@/features/transactions/constants";
+import { useTransactionCategories } from "@/features/transactions/hooks";
+import { useWallets } from "@/features/wallets/hooks";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
 
