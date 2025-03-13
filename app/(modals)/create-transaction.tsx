@@ -1,42 +1,43 @@
+import { Feather } from "@expo/vector-icons";
 import { eq } from "drizzle-orm";
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 
 import { ScreenWrapper } from "@/components/layouts";
-import { Button, DatePicker, Input, Select, Text } from "@/components/ui";
+import {
+  Button,
+  CurrencyInput,
+  DatePicker,
+  Input,
+  Select,
+  Text,
+} from "@/components/ui";
 import { colors } from "@/constants/theme";
 import { db } from "@/database/init";
 import { TransactionTable, WalletTable } from "@/database/schema";
+import {
+  TransactionCategoryPicker,
+  TransactionTypePicker,
+} from "@/features/transactions/components";
 import { transactionTypes } from "@/features/transactions/constants";
-import { useTransactionCategories } from "@/features/transactions/hooks";
 import { useWallets } from "@/features/wallets/hooks";
 import { formatCurrency } from "@/lib/formatters";
 import { scale, verticalScale } from "@/lib/scaling";
-
-const transactionTypeOptions = Object.keys(transactionTypes).map((key) => ({
-  label: transactionTypes[key as keyof typeof transactionTypes],
-  value: key,
-}));
 
 type TransactionFormState = typeof TransactionTable.$inferInsert;
 type TransactionErrorsState = Record<keyof TransactionFormState, string>;
 type TransactionFormStatus = "success" | "pending" | "error" | "idle";
 
 export default function CreateTransaction() {
-  const [formState, setFormState] = useState<Partial<TransactionFormState>>({});
+  const [formState, setFormState] = useState<Partial<TransactionFormState>>({
+    createdAt: new Date(),
+    type: "expense",
+  });
   const [errors, setErrors] = useState<Partial<TransactionErrorsState>>({});
   const [status, setStatus] = useState<TransactionFormStatus>("idle");
 
   const { wallets: walletList } = useWallets();
-  const { categories } = useTransactionCategories({ type: formState.type });
-
-  const categoryOptions = useMemo(() => {
-    return categories.map((category) => ({
-      label: category.name,
-      value: category.id,
-    }));
-  }, [categories]);
 
   const walletOptions = useMemo(() => {
     return walletList.map((wallet) => ({
@@ -89,7 +90,7 @@ export default function CreateTransaction() {
       newErrors.type = "Selecciona un tipo";
     }
     if (!category || category === 0) {
-      newErrors.category = "Selecciona un tipo";
+      newErrors.category = "Selecciona un categoría";
     }
     if (!walletId || walletId === 0) {
       newErrors.walletId = "Selecciona una billetera";
@@ -159,7 +160,7 @@ export default function CreateTransaction() {
       setStatus("success");
 
       Alert.alert("Éxito", "Transferencia registrada con éxito.", [
-        { text: "OK", onPress: () => router.replace("/") },
+        { text: "OK", onPress: () => router.back() },
       ]);
     } catch {
       setStatus("error");
@@ -181,16 +182,45 @@ export default function CreateTransaction() {
             gap: scale(16),
           }}
         >
-          <Text size={25} fontWeight="700">
-            Crear Transacción
-          </Text>
+          <View style={{ justifyContent: "flex-start" }}>
+            <Button
+              variant="secondary"
+              style={{ width: scale(45), height: scale(45) }}
+              onPress={() => router.back()}
+            >
+              <Feather
+                name="arrow-left"
+                size={scale(20)}
+                color={colors.white}
+              />
+            </Button>
+          </View>
           <View>
-            <Select
+            <CurrencyInput
+              value={formState.amount}
+              onChangeNumber={handleChange("amount")}
+              placeholder={formatCurrency(0)}
+              isError={!!errors.amount}
+              containerStyle={{
+                justifyContent: "center",
+                backgroundColor: colors.black,
+                marginBottom: verticalScale(8),
+                height: "auto",
+              }}
+              textStyle={{
+                fontSize: verticalScale(33),
+              }}
+            />
+            {errors.amount && (
+              <Text size={12} color={colors.red}>
+                {errors.amount}
+              </Text>
+            )}
+          </View>
+          <View>
+            <TransactionTypePicker
               value={formState.type}
-              options={transactionTypeOptions}
-              defaultOptionText="Selecciona un tipo"
               onChange={handleChange("type")}
-              isError={!!errors.type}
             />
             {errors.type && (
               <Text size={12} color={colors.red}>
@@ -199,6 +229,33 @@ export default function CreateTransaction() {
             )}
           </View>
           <View>
+            <Text
+              size={13}
+              color={colors.grayLight}
+              style={{ marginBottom: verticalScale(4) }}
+            >
+              Nombre
+            </Text>
+            <Input
+              value={formState.title}
+              placeholder="Ingresa un nombre"
+              onChangeText={handleChange("title")}
+              isError={!!errors.title}
+            />
+            {errors.title && (
+              <Text size={12} color={colors.red}>
+                {errors.title}
+              </Text>
+            )}
+          </View>
+          <View>
+            <Text
+              size={13}
+              color={colors.grayLight}
+              style={{ marginBottom: verticalScale(4) }}
+            >
+              Billetera
+            </Text>
             <Select
               value={formState.walletId}
               options={walletOptions}
@@ -213,36 +270,38 @@ export default function CreateTransaction() {
             )}
           </View>
           <View>
-            <Select
-              value={formState.category}
-              options={categoryOptions}
-              defaultOptionText="Selecciona una categoría"
-              onChange={handleChange("category")}
-              isError={!!errors.category}
+            <Text
+              size={13}
+              color={colors.grayLight}
+              style={{ marginBottom: verticalScale(4) }}
+            >
+              Fecha
+            </Text>
+            <DatePicker
+              value={formState.createdAt}
+              onChangeDate={handleChange("createdAt")}
+              isError={!!errors.createdAt}
             />
-            {errors.category && (
-              <Text size={12} color={colors.red}>
-                {errors.category}
-              </Text>
-            )}
           </View>
           <View>
-            <Input
-              value={formState.title}
-              placeholder="Titulo"
-              onChangeText={handleChange("title")}
-              isError={!!errors.title}
-            />
-            {errors.title && (
-              <Text size={12} color={colors.red}>
-                {errors.title}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: verticalScale(4),
+                gap: scale(3),
+              }}
+            >
+              <Text color={colors.grayLight} size={13}>
+                Descripción
               </Text>
-            )}
-          </View>
-          <View>
+              <Text color={colors.grayDark} size={10}>
+                - Opcional
+              </Text>
+            </View>
             <Input
               value={formState.description}
-              placeholder="Descripción (opcional)"
+              placeholder="Ingresa una descripción"
               onChangeText={handleChange("description")}
               isError={!!errors.description}
             />
@@ -253,31 +312,30 @@ export default function CreateTransaction() {
             )}
           </View>
           <View>
-            <Input
-              value={formState.amount}
-              placeholder="Valor"
-              onChangeNumber={handleChange("amount")}
-              isError={!!errors.amount}
+            <Text
+              size={13}
+              color={colors.grayLight}
+              style={{ marginBottom: verticalScale(8) }}
+            >
+              Selecciona una categoría.
+            </Text>
+            <TransactionCategoryPicker
+              value={formState.category}
+              currentType={formState.type}
+              onChange={handleChange("category")}
             />
-            {errors.amount && (
+            {errors.category && (
               <Text size={12} color={colors.red}>
-                {errors.amount}
+                {errors.category}
               </Text>
             )}
-          </View>
-          <View>
-            <DatePicker
-              value={formState.createdAt}
-              onChangeDate={handleChange("createdAt")}
-              isError={!!errors.createdAt}
-            />
           </View>
           <Button
             onPress={handleSubmit}
             disabled={status === "pending" || status === "success"}
           >
             <Text color={colors.black} size={14} fontWeight={600}>
-              Crear
+              Crear Transacción
             </Text>
           </Button>
         </View>
