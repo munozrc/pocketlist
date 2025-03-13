@@ -76,10 +76,20 @@ export default function HomeTab() {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.balanceContainer}>
-            <Text size={9} color={colors.grayMedium} fontWeight={600}>
+            <Text
+              size={9}
+              color={colors.grayMedium}
+              fontWeight={600}
+              style={{ textAlign: "center" }}
+            >
               SALDO DISPONIBLE
             </Text>
-            <Text size={26} color={colors.white} fontWeight="600">
+            <Text
+              size={26}
+              color={colors.white}
+              fontWeight={600}
+              style={{ textAlign: "center" }}
+            >
               {formatCurrency(totalBalance)}
             </Text>
           </View>
@@ -171,7 +181,8 @@ const styles = StyleSheet.create({
   },
   balanceContainer: {
     flex: 1,
-    marginBottom: verticalScale(20),
+    marginTop: verticalScale(10),
+    marginBottom: verticalScale(16),
   },
   dateFilterContainer: {
     flexDirection: "row",
